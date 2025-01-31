@@ -5,6 +5,7 @@ import {
   deletePart,
   addPart,
   fetchCategories,
+  deleteCategory, // Importujemy nową funkcję
 } from "../api/hooks";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -64,6 +65,15 @@ export const PartialList = () => {
     },
   });
 
+  // Dodajemy akcję usuwania kategorii
+  const deleteCategoryMutation = useMutation({
+    mutationFn: deleteCategory,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      navigate("/categories"); // Po usunięciu kategorii wracamy do listy kategorii
+    },
+  });
+
   const handleAddPart = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -82,6 +92,12 @@ export const PartialList = () => {
       price: parseFloat(newPart.price),
       categoryId: id,
     });
+  };
+
+  const handleDeleteCategory = () => {
+    if (window.confirm(`Czy na pewno chcesz usunąć kategorię "${categoryName}" i wszystkie części z nią związane?`)) {
+      deleteCategoryMutation.mutate(id!); // Usuwamy kategorię i jej części
+    }
   };
 
   if (isLoading) {
@@ -120,6 +136,15 @@ export const PartialList = () => {
             sx={{ mb: 2 }}
           >
             Powrót do kategorii
+          </Button>
+          {/* Dodajemy przycisk usuwania kategorii */}
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleDeleteCategory}
+            sx={{ mb: 2 }}
+          >
+            Usuń kategorię i części
           </Button>
         </Box>
 

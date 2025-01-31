@@ -53,6 +53,13 @@ export const addCategory = async (
 };
 
 export const deleteCategory = async (categoryId: string): Promise<void> => {
+  // Fetch parts for the category
+  const parts = await fetchPartsByCategory(categoryId);
+
+  // Delete all parts for the category
+  await Promise.all(parts.map(part => deletePart(part.id)));
+
+  // Now delete the category itself
   const response = await fetch(`${API_URL}/categories/${categoryId}`, {
     method: "DELETE",
   });
@@ -77,6 +84,7 @@ export const deletePart = async (partId: string): Promise<void> => {
   });
   await handleResponse(response);
 };
+
 export const addPart = async (part: Omit<Part, "id">): Promise<Part> => {
   const response = await fetch(`${API_URL}/parts`, {
     method: "POST",
