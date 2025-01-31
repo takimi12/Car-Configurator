@@ -25,6 +25,8 @@ export const PartialList = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
+
+
   const [newPart, setNewPart] = useState({
     name: "",
     price: "",
@@ -108,7 +110,7 @@ export const PartialList = () => {
   }
 
   return (
-    <Box display="flex" marginTop={10}>
+<Box display="flex" justifyContent="center" marginTop={10}>
       <Box>
         <Box sx={{ mb: 4 }}>
           <Typography variant="h4" gutterBottom>

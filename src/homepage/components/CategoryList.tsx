@@ -85,7 +85,7 @@ export const CategoryList: React.FC = () => {
               <Button
                 size="small"
                 component={Link}
-                to={`/category/${category.identifier}`}
+                to={`/category/part/${category.id}`}
                 fullWidth
               >
                 Konfiguracja
