@@ -14,7 +14,7 @@ import { HomePage } from "./homepage/HomePage";
 import { Header } from "./homepage/components/Header";
 
 const queryClient = new QueryClient();
-// test
+
 const App: React.FC = () => {
   return (
     <Provider store={store}>
