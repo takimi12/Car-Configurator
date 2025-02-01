@@ -102,7 +102,7 @@ export const PartialList = () => {
     }
 
     // Create a slug-like partId from the provided value
-    const formattedPartId = newPart.partId.toLowerCase().replace(/\s+/g, '-');
+    const formattedPartId = newPart.partId.toLowerCase().replace(/\s+/g, "-");
 
     addPartMutation.mutate({
       name: newPart.name,
@@ -115,7 +115,7 @@ export const PartialList = () => {
   const handleDeleteCategory = () => {
     if (
       window.confirm(
-        `Czy na pewno chcesz usunąć kategorię "${categoryName}" i wszystkie części z nią związane?`
+        `Czy na pewno chcesz usunąć kategorię "${categoryName}" i wszystkie części z nią związane?`,
       )
     ) {
       deleteCategoryMutation.mutate(id!);

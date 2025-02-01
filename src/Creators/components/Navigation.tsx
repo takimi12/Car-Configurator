@@ -34,12 +34,12 @@ export const CreatorNavigation: React.FC<NavigationProps> = ({
   const handleGoForward = () => {
     if (id) {
       const currentCategory = categories?.find(
-        (cat) => cat.position.toString() === id
+        (cat) => cat.position.toString() === id,
       );
       if (!currentCategory) return;
 
       const currentCategoryParts = consolidatedParts.filter(
-        (part: PartWithQuantity) => part.categoryId === currentCategory.id
+        (part: PartWithQuantity) => part.categoryId === currentCategory.id,
       );
 
       if (parseInt(id) === lastStep && currentCategoryParts.length > 0) {
@@ -51,7 +51,7 @@ export const CreatorNavigation: React.FC<NavigationProps> = ({
         navigate(`/creator/${parseInt(id) + 1}`);
       } else {
         alert(
-          "Musisz wybrać przynajmniej jedną część z tej kategorii, aby przejść dalej."
+          "Musisz wybrać przynajmniej jedną część z tej kategorii, aby przejść dalej.",
         );
       }
     }
@@ -84,7 +84,7 @@ export const CreatorNavigation: React.FC<NavigationProps> = ({
             onClick={() => {
               if (el.position > 1 && !hasPartsForCategory(el.position - 1)) {
                 alert(
-                  `Musisz wybrać przynajmniej jedną część z poprzedniej kategorii, aby przejść do etapu ${el.position}.`
+                  `Musisz wybrać przynajmniej jedną część z poprzedniej kategorii, aby przejść do etapu ${el.position}.`,
                 );
                 return;
               }

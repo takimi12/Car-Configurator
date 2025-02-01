@@ -29,7 +29,8 @@ export const Creators: React.FC = () => {
     error: partsError,
   } = useQuery<Part[]>({
     queryKey: ["parts", id],
-    queryFn: () => (category ? fetchPartsByCategory(category.id) : Promise.resolve([])),
+    queryFn: () =>
+      category ? fetchPartsByCategory(category.id) : Promise.resolve([]),
     enabled: !!category,
   });
 
@@ -57,11 +58,11 @@ export const Creators: React.FC = () => {
     if (!categories) return [];
 
     const categoryIdsWithParts = new Set(
-      consolidatedParts.map((part) => part.categoryId)
+      consolidatedParts.map((part) => part.categoryId),
     );
 
     return categories.filter(
-      (category) => !categoryIdsWithParts.has(category.id)
+      (category) => !categoryIdsWithParts.has(category.id),
     );
   }, [categories, consolidatedParts]);
 
@@ -80,7 +81,7 @@ export const Creators: React.FC = () => {
 
   const totalPrice = consolidatedParts.reduce(
     (sum: number, part: PartWithQuantity) => sum + part.price * part.quantity,
-    0
+    0,
   );
 
   const lastStep = categories

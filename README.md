@@ -1,62 +1,174 @@
-# Getting Started with Create React App
+Car Configurator / Konfigurator Samochodów
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+🇬🇧 English Version
 
-## Available Scripts
+# Project Description
 
-In the project directory, you can run:
+Car Configurator is a web application that enables users to customize and order their dream car through an intuitive step-by-step process. The application guides users through various car customization options, ranging from basic features to advanced modifications, while providing real-time price updates. Users can save their configurations and resume them later, making the car customization process convenient and user-friendly.
 
-### `npm start`
+# Architecture
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+graph TD
+    A[Frontend React App] --> B[Redux/Zustand Store]
+    A --> C[React Query]
+    C --> D[JSON Server API]
+    D --> E[(Local Storage)]
+    B --> E
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Tech Stack
+![wersja polska](../my-app//public/read%20me%20eng.png)
 
-### `npm test`
+# Local Development
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Prerequisites: Node.js v20.*
 
-### `npm run build`
+git clone https://github.com/your-username/car-configurator
+cd my-app
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Install dependencies
+npm install
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Start JSON server (in a separate terminal)
+json-server --watch db.json --port 3000
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Start development server
+npm run start
 
-### `npm run eject`
+# Available Scripts
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+| **Command**  | **Description**                                      |
+|--------------|------------------------------------------------------|
+| dev          | Starts the development server                        |
+| server       | Runs the JSON server for mock API                    |
+| build        | Builds the application for production                |
+| preview      | Serves the built application locally                 |
+| lint         | Runs ESLint to check code quality                    |
+| lint:fix     | Fixes auto-fixable ESLint issues                     |
+| format       | Runs Prettier to format code                         |
+| prepare      | Sets up Husky git hooks                              |
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# Features Implemented
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Multi-step car configuration wizard with category-based progression
 
-## Learn More
+Real-time price calculation and display
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Persistent configuration storage using localStorage
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Admin panel for managing categories and parts
 
-# Football-App-Project
+Comprehensive order management system
 
-# Football-App-Project
+Responsive Material UI design
 
-# Football-App-Project
+Form validation for user details
 
-# Football-App-Project
+Order history and configuration summary
 
-# Projekt-4
+Automatic routing based on configuration steps
 
-# Projekt4
+Real-time configuration updates
 
-# ReactProject4
+Future Plans
 
-# Projekt4
+Implement user accounts and authentication
+
+Add comparison feature between different configurations
+
+Integrate with real car manufacturer APIs
+
+Add PDF export for configurations
+
+Implement configuration sharing functionality
+
+Expand customization options and categories
+
+# Contact
+
+Email: tomek12olech@gmail.com
+GitHub: [takimi12](https://github.com/takimi12)
+LinkedIn:
+
+🇵🇱 Polska Wersja
+
+Opis Projektu
+
+Konfigurator Samochodów to aplikacja internetowa umożliwiająca użytkownikom dostosowanie i zamówienie wymarzonego samochodu poprzez intuicyjny proces krok po kroku. Aplikacja prowadzi użytkowników przez różne kategorie opcji personalizacji, od podstawowych funkcji po zaawansowane modyfikacje, zapewniając jednocześnie aktualizacje cen w czasie rzeczywistym. Użytkownicy mogą zapisywać swoje konfiguracje i wracać do nich później, co sprawia, że proces personalizacji samochodu jest wygodny i przyjazny dla użytkownika.
+
+Architektura
+
+graph TD
+    A[Frontend React App] --> B[Redux/Zustand Store]
+    A --> C[React Query]
+    C --> D[JSON Server API]
+    D --> E[(Local Storage)]
+    B --> E
+
+Stack Technologiczny
+
+# Technologia
+
+![wersja polska](../my-app//public/read%20me.png)
+
+
+# Lokalny Development
+
+Wymagania: Node.js v20.*
+
+git clone https://github.com/your-username/car-configurator
+cd my-app
+
+# Instalacja zależności
+npm install
+
+# Uruchomienie JSON servera (w osobnym terminalu)
+json-server --watch db.json --port 3000
+
+# Uruchomienie serwera deweloperskiego
+npm run start
+
+# Dostępne Skrypty
+
+
+| **Polecenie** | **Opis**                                               |
+|---------------|--------------------------------------------------------|
+| dev           | Uruchamia serwer deweloperski                           |
+| server        | Uruchamia JSON server dla mockowego API                 |
+| build         | Buduje aplikację do wersji produkcyjnej                 |
+| preview       | Serwuje zbudowaną aplikację lokalnie                    |
+| lint          | Uruchamia ESLint, aby sprawdzić jakość kodu            |
+| lint:fix      | Naprawia automatycznie naprawialne problemy ESLint      |
+| format        | Uruchamia Prettier, aby sformatować kod                 |
+| prepare       | Ustawia git hooki Husky                                |
+
+
+
+# Zaimplementowane Funkcje
+
+Wieloetapowy kreator konfiguracji samochodu z progresją opartą na kategoriach
+Obliczanie i wyświetlanie ceny w czasie rzeczywistym
+Trwałe przechowywanie konfiguracji przy użyciu localStorage
+Panel administracyjny do zarządzania kategoriami i częściami
+Kompleksowy system zarządzania zamówieniami
+Responsywny design z Material UI
+Walidacja formularza danych użytkownika
+Historia zamówień i podsumowanie konfiguracji
+Automatyczne routowanie na podstawie kroków konfiguracji
+Aktualizacje konfiguracji w czasie rzeczywistym
+
+# Plany na Przyszłość
+
+Implementacja kont użytkowników i uwierzytelniania
+Dodanie funkcji porównywania różnych konfiguracji
+Integracja z rzeczywistymi API producentów samochodów
+Dodanie eksportu konfiguracji do PDF
+Implementacja funkcji udostępniania konfiguracji
+Rozszerzenie opcji i kategorii dostosowywania
+
+# Kontakt
+
+Email: tomek12olech@gmail.com
+GitHub: [takimi12](https://github.com/takimi12)
+LinkedIn: 
+

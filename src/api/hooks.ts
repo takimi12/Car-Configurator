@@ -10,7 +10,7 @@ export interface Part {
   name: string;
   price: number;
   categoryId: string;
-  partId:string;
+  partId: string;
 }
 
 export interface Order {
