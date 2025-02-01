@@ -9,44 +9,58 @@ Car Configurator is a web application that enables users to customize and order 
 # Architecture
 
 graph TD
-    A[Frontend React App] --> B[Redux/Zustand Store]
-    A --> C[React Query]
-    C --> D[JSON Server API]
-    D --> E[(Local Storage)]
-    B --> E
+A[Frontend React App] --> B[Redux/Zustand Store]
+A --> C[React Query]
+C --> D[JSON Server API]
+D --> E[(Local Storage)]
+B --> E
 
 # Tech Stack
-![wersja polska](../my-app//public/read%20me%20eng.png)
+
+| **Technology**         | **Description**                                         |
+|------------------------|---------------------------------------------------------|
+| React                  | Frontend framework for building user interfaces        |
+| TypeScript             | Static typing for better code quality and developer experience |
+| Material UI            | Component library for consistent and professional UI design |
+| React Query            | Data fetching, caching, and server state management     |
+| Redux Toolkit / Zustand | Global state management for applications                |
+| React Router           | Navigation and routing management in applications       |
+| JSON Server            | Mock API backend for development and testing           |
+| ESLint                 | Code linting and maintaining code quality              |
+| Prettier               | Code formatting                                         |
+| Husky                  | Git hooks for checking code quality before commits     |
 
 # Local Development
 
-Prerequisites: Node.js v20.*
+Prerequisites: Node.js v20.\*
 
 git clone https://github.com/your-username/car-configurator
 cd my-app
 
 # Install dependencies
+
 npm install
 
 # Start JSON server (in a separate terminal)
+
 json-server --watch db.json --port 3000
 
 # Start development server
+
 npm run start
 
 # Available Scripts
 
-| **Command**  | **Description**                                      |
-|--------------|------------------------------------------------------|
-| dev          | Starts the development server                        |
-| server       | Runs the JSON server for mock API                    |
-| build        | Builds the application for production                |
-| preview      | Serves the built application locally                 |
-| lint         | Runs ESLint to check code quality                    |
-| lint:fix     | Fixes auto-fixable ESLint issues                     |
-| format       | Runs Prettier to format code                         |
-| prepare      | Sets up Husky git hooks                              |
-
+| **Command** | **Description**                       |
+| ----------- | ------------------------------------- |
+| dev         | Starts the development server         |
+| server      | Runs the JSON server for mock API     |
+| build       | Builds the application for production |
+| preview     | Serves the built application locally  |
+| lint        | Runs ESLint to check code quality     |
+| lint:fix    | Fixes auto-fixable ESLint issues      |
+| format      | Runs Prettier to format code          |
+| prepare     | Sets up Husky git hooks               |
 
 # Features Implemented
 
@@ -99,50 +113,61 @@ Konfigurator Samochodów to aplikacja internetowa umożliwiająca użytkownikom 
 Architektura
 
 graph TD
-    A[Frontend React App] --> B[Redux/Zustand Store]
-    A --> C[React Query]
-    C --> D[JSON Server API]
-    D --> E[(Local Storage)]
-    B --> E
+A[Frontend React App] --> B[Redux/Zustand Store]
+A --> C[React Query]
+C --> D[JSON Server API]
+D --> E[(Local Storage)]
+B --> E
 
-Stack Technologiczny
+# Stack Technologiczny
 
-# Technologia
 
-![wersja polska](../my-app//public/read%20me.png)
+
+| **Technologia**        | **Opis**                                                |
+|------------------------|--------------------------------------------------------|
+| React                  | Framework frontendowy do budowy interfejsu użytkownika |
+| TypeScript             | Typowanie statyczne dla lepszej jakości kodu i doświadczenia developera |
+| Material UI            | Biblioteka komponentów dla spójnego i profesjonalnego designu UI |
+| React Query            | Pobieranie danych, cachowanie i zarządzanie stanem serwera |
+| Redux Toolkit / Zustand | Globalne zarządzanie stanem aplikacji                  |
+| React Router           | Obsługa nawigacji i routingu w aplikacjach             |
+| JSON Server            | Mock API backendowe do rozwoju i testowania           |
+| ESLint                 | Linting kodu i utrzymanie jego jakości                 |
+| Prettier               | Formatowanie kodu                                      |
+| Husky                  | Git hooks do sprawdzania jakości kodu przed commitem   |
 
 
 # Lokalny Development
 
-Wymagania: Node.js v20.*
+Wymagania: Node.js v20.\*
 
 git clone https://github.com/your-username/car-configurator
 cd my-app
 
 # Instalacja zależności
+
 npm install
 
 # Uruchomienie JSON servera (w osobnym terminalu)
+
 json-server --watch db.json --port 3000
 
 # Uruchomienie serwera deweloperskiego
+
 npm run start
 
 # Dostępne Skrypty
 
-
-| **Polecenie** | **Opis**                                               |
-|---------------|--------------------------------------------------------|
-| dev           | Uruchamia serwer deweloperski                           |
-| server        | Uruchamia JSON server dla mockowego API                 |
-| build         | Buduje aplikację do wersji produkcyjnej                 |
-| preview       | Serwuje zbudowaną aplikację lokalnie                    |
-| lint          | Uruchamia ESLint, aby sprawdzić jakość kodu            |
-| lint:fix      | Naprawia automatycznie naprawialne problemy ESLint      |
-| format        | Uruchamia Prettier, aby sformatować kod                 |
-| prepare       | Ustawia git hooki Husky                                |
-
-
+| **Polecenie** | **Opis**                                           |
+| ------------- | -------------------------------------------------- |
+| dev           | Uruchamia serwer deweloperski                      |
+| server        | Uruchamia JSON server dla mockowego API            |
+| build         | Buduje aplikację do wersji produkcyjnej            |
+| preview       | Serwuje zbudowaną aplikację lokalnie               |
+| lint          | Uruchamia ESLint, aby sprawdzić jakość kodu        |
+| lint:fix      | Naprawia automatycznie naprawialne problemy ESLint |
+| format        | Uruchamia Prettier, aby sformatować kod            |
+| prepare       | Ustawia git hooki Husky                            |
 
 # Zaimplementowane Funkcje
 
@@ -170,5 +195,4 @@ Rozszerzenie opcji i kategorii dostosowywania
 
 Email: tomek12olech@gmail.com
 GitHub: [takimi12](https://github.com/takimi12)
-LinkedIn: 
-
+LinkedIn:
