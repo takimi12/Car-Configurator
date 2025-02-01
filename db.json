@@ -1,236 +1,207 @@
 {
   "categories": [
     {
-      "id": "1",
+      "id": "32f7",
       "name": "Dach",
       "identifier": "dach",
       "position": 1
     },
     {
-      "id": "2",
+      "id": "e599",
       "name": "Koła",
       "identifier": "koła",
       "position": 2
     },
     {
-      "id": "3",
-      "name": "klimatyzacja",
+      "id": "cea4",
+      "name": "Klimatyzacja",
       "identifier": "klimatyzacja",
       "position": 3
     },
     {
-      "id": "4",
-      "name": "multimedia",
+      "id": "44a0",
+      "name": "Multimedia",
       "identifier": "multimedia",
       "position": 4
     },
     {
-      "id": "5",
+      "id": "cfca",
       "name": "Akcesoria",
-      "identifier": "Akcesoria",
+      "identifier": "akcesoria",
       "position": 5
     }
   ],
   "parts": [
     {
-      "id": "opening-roof",
+      "id": "a032",
       "name": "Otwierany dach",
       "price": 1000,
-      "categoryId": "1"
+      "partId": "opening-roof",
+      "categoryId": "32f7"
     },
     {
-      "id": "sunroof",
-      "name": "Szyberdach",
-      "price": 1200,
-      "categoryId": "1"
+      "id": "fcaf",
+      "name": "szyberdach",
+      "price": 111,
+      "partId": "sunroof",
+      "categoryId": "32f7"
     },
     {
-      "id": "roof-rack",
+      "id": "21ca",
       "name": "Bagażnik dachowy",
-      "price": 800,
-      "categoryId": "1"
+      "price": 222,
+      "partId": "roof-instalation",
+      "categoryId": "32f7"
     },
     {
-      "id": "roof-insulation",
-      "name": "Izolacja dachu",
-      "price": 600,
-      "categoryId": "1"
-    },
-    {
-      "id": "panoramic-roof",
+      "id": "25c2",
       "name": "Dach panoramiczny",
-      "price": 1500,
-      "categoryId": "1"
+      "price": 222,
+      "partId": "panoramic-roof",
+      "categoryId": "32f7"
     },
     {
-      "id": "basic-wheels",
+      "id": "09a4",
       "name": "Podstawowe koła",
-      "price": 400,
-      "categoryId": "2"
+      "price": 1000,
+      "partId": "basic-whhels",
+      "categoryId": "e599"
     },
     {
-      "id": "alloy-wheels",
+      "id": "14cd",
       "name": "Aluminiowe felgi",
-      "price": 1500,
-      "categoryId": "2"
-    },
-    {
-      "id": "winter-tires",
-      "name": "Opony zimowe",
-      "price": 600,
-      "categoryId": "2"
-    },
-    {
-      "id": "spare-tire",
-      "name": "Koło zapasowe",
-      "price": 500,
-      "categoryId": "2"
-    },
-    {
-      "id": "sport-wheels",
-      "name": "Felgi sportowe",
-      "price": 2000,
-      "categoryId": "2"
-    },
-    {
-      "id": "manual-climate",
-      "name": "Klimatyzacja manualna",
-      "price": 500,
-      "categoryId": "3"
-    },
-    {
-      "id": "adaptive-climate",
-      "name": "Klimatyzacja automatyczna",
-      "price": 800,
-      "categoryId": "3"
-    },
-    {
-      "id": "dual-zone-climate",
-      "name": "Klimatyzacja dwustrefowa",
-      "price": 1000,
-      "categoryId": "3"
-    },
-    {
-      "id": "air-purifier",
-      "name": "Oczyszczacz powietrza",
-      "price": 700,
-      "categoryId": "3"
-    },
-    {
-      "id": "climate-remote",
-      "name": "Zdalne sterowanie klimatyzacją",
-      "price": 900,
-      "categoryId": "3"
-    },
-    {
-      "id": "premium-sound",
-      "name": "System audio premium",
-      "price": 2000,
-      "categoryId": "4"
-    },
-    {
-      "id": "touchscreen",
-      "name": "Ekran dotykowy",
-      "price": 1000,
-      "categoryId": "4"
-    },
-    {
-      "id": "navigation",
-      "name": "Nawigacja GPS",
-      "price": 1500,
-      "categoryId": "4"
-    },
-    {
-      "id": "bluetooth",
-      "name": "Bluetooth",
-      "price": 400,
-      "categoryId": "4"
-    },
-    {
-      "id": "rear-camera",
-      "name": "Kamera cofania",
       "price": 1200,
-      "categoryId": "4"
+      "partId": "alloy-wheels",
+      "categoryId": "e599"
     },
     {
-      "id": "chrome-trim",
-      "name": "Chromowane wykończenia",
-      "price": 600,
-      "categoryId": "5"
+      "id": "f485",
+      "name": "Opony zimowe",
+      "price": 1300,
+      "partId": "winter-tires",
+      "categoryId": "e599"
     },
     {
-      "id": "led-lights",
-      "name": "Światła LED",
-      "price": 800,
-      "categoryId": "5"
+      "id": "6a37",
+      "name": "Koło zapasowe",
+      "price": 1400,
+      "partId": "spare-tire",
+      "categoryId": "e599"
     },
     {
-      "id": "spoiler",
-      "name": "Spoiler",
-      "price": 1000,
-      "categoryId": "5"
+      "id": "b2e2",
+      "name": "Felgi sportowe",
+      "price": 1500,
+      "partId": "sport-wheels",
+      "categoryId": "e599"
     },
     {
-      "id": "car-cover",
-      "name": "Pokrowiec na samochód",
+      "id": "d2fb",
+      "name": "Klmatyzacja automatyczna",
+      "price": 100,
+      "partId": "adaptive-climate",
+      "categoryId": "cea4"
+    },
+    {
+      "id": "7fa5",
+      "name": "Klimatyzacja dwustrefowa",
+      "price": 100,
+      "partId": "dual-zone-climate",
+      "categoryId": "cea4"
+    },
+    {
+      "id": "e7eb",
+      "name": "Oczyszczasz powietrza",
       "price": 300,
-      "categoryId": "5"
+      "partId": "air-purifier",
+      "categoryId": "cea4"
     },
     {
-      "id": "floor-mats",
-      "name": "Dywaniki podłogowe",
+      "id": "31c5",
+      "name": "Zdalne sterowane klimatyzacja",
+      "price": 400,
+      "partId": "climate-remote",
+      "categoryId": "cea4"
+    },
+    {
+      "id": "27b0",
+      "name": "System audio premium",
       "price": 200,
-      "categoryId": "5"
+      "partId": "premium-sound",
+      "categoryId": "44a0"
+    },
+    {
+      "id": "e8bc",
+      "name": "Ekran dotykowy",
+      "price": 200,
+      "partId": "touchscreen",
+      "categoryId": "44a0"
+    },
+    {
+      "id": "675d",
+      "name": "Nawigacja gps",
+      "price": 400,
+      "partId": "navigation",
+      "categoryId": "44a0"
+    },
+    {
+      "id": "7b2b",
+      "name": "bluetooth",
+      "price": 500,
+      "partId": "bluetooth",
+      "categoryId": "44a0"
+    },
+    {
+      "id": "c907",
+      "name": "kamera cofania",
+      "price": 300,
+      "partId": "rear-camera",
+      "categoryId": "44a0"
+    },
+    {
+      "id": "4e6e",
+      "name": "chromowane wykonczenia",
+      "price": 300,
+      "partId": "chrome-trim",
+      "categoryId": "cfca"
+    },
+    {
+      "id": "23eb",
+      "name": "światła led",
+      "price": 400,
+      "partId": "led-lights",
+      "categoryId": "cfca"
+    },
+    {
+      "id": "03b7",
+      "name": "spoiler",
+      "price": 300,
+      "partId": "spoiler",
+      "categoryId": "cfca"
+    },
+    {
+      "id": "a309",
+      "name": "pokrowiec na samochod",
+      "price": 500,
+      "partId": "car-cover",
+      "categoryId": "cfca"
+    },
+    {
+      "id": "3393",
+      "name": "dywaniki podlogowe",
+      "price": 500,
+      "partId": "floor-mats",
+      "categoryId": "cfca"
     }
   ],
   "orders": [
     {
-      "id": "b177",
-      "firstName": "adam",
-      "lastName": "malysz",
-      "email": "tom@tom.pl",
-      "value": 7300,
-      "details": "Dach panoramiczny, Dach panoramiczny, Felgi sportowe, Zdalne sterowanie klimatyzacją, Kamera cofania, Dywaniki podłogowe"
-    },
-    {
-      "id": "92dd",
-      "firstName": "adada",
-      "lastName": "adadada",
-      "email": "tomasztam@op.pl",
-      "value": 6000,
-      "details": "Otwierany dach, Aluminiowe felgi, Klimatyzacja automatyczna, Nawigacja GPS, Spoiler, Dywaniki podłogowe"
-    },
-    {
-      "id": "53e9",
-      "firstName": "aaa",
-      "lastName": "aaa",
+      "id": "b269",
+      "firstName": "Grab",
+      "lastName": "aa",
       "email": "a@a.pl",
-      "value": 3800,
-      "details": "Otwierany dach, Aluminiowe felgi, Oczyszczacz powietrza, Bluetooth, Dywaniki podłogowe"
-    },
-    {
-      "id": "ed71",
-      "firstName": "a",
-      "lastName": "a",
-      "email": "b@b.pl",
-      "value": 3800,
-      "details": "Otwierany dach, Aluminiowe felgi, Oczyszczacz powietrza, Bluetooth, Dywaniki podłogowe"
-    },
-    {
-      "id": "3f60",
-      "firstName": "Tomasz",
-      "lastName": "Olech",
-      "email": "tomek12olech@gmail.com",
-      "value": 4900,
-      "details": "Otwierany dach, Aluminiowe felgi, Klimatyzacja dwustrefowa, Kamera cofania, Dywaniki podłogowe"
-    },
-    {
-      "id": "a279",
-      "firstName": "ada",
-      "lastName": "ada",
-      "email": "to@a.pl",
-      "value": 4100,
-      "details": "Otwierany dach, Aluminiowe felgi, Klimatyzacja dwustrefowa, Bluetooth, Dywaniki podłogowe"
+      "value": 3500,
+      "details": "Otwierany dach, Opony zimowe, Zdalne sterowane klimatyzacja, kamera cofania, dywaniki podlogowe"
     }
   ]
 }

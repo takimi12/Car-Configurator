@@ -18,12 +18,11 @@ export const CreatorNavigation: React.FC<NavigationProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const hasPartsForCategory = (categoryId: string) => {
-    return (
-      consolidatedParts.filter(
-        (part: PartWithQuantity) => part.categoryId === categoryId,
-      ).length > 0
-    );
+  const hasPartsForCategory = (position: number) => {
+    const category = categories?.find((cat) => cat.position === position);
+    return category
+      ? consolidatedParts.some((part) => part.categoryId === category.id)
+      : false;
   };
 
   const handleGoBack = () => {
@@ -34,8 +33,13 @@ export const CreatorNavigation: React.FC<NavigationProps> = ({
 
   const handleGoForward = () => {
     if (id) {
+      const currentCategory = categories?.find(
+        (cat) => cat.position.toString() === id
+      );
+      if (!currentCategory) return;
+
       const currentCategoryParts = consolidatedParts.filter(
-        (part: PartWithQuantity) => part.categoryId === id,
+        (part: PartWithQuantity) => part.categoryId === currentCategory.id
       );
 
       if (parseInt(id) === lastStep && currentCategoryParts.length > 0) {
@@ -47,7 +51,7 @@ export const CreatorNavigation: React.FC<NavigationProps> = ({
         navigate(`/creator/${parseInt(id) + 1}`);
       } else {
         alert(
-          "Musisz wybrać przynajmniej jedną część z tej kategorii, aby przejść dalej.",
+          "Musisz wybrać przynajmniej jedną część z tej kategorii, aby przejść dalej."
         );
       }
     }
@@ -78,21 +82,15 @@ export const CreatorNavigation: React.FC<NavigationProps> = ({
             color="primary"
             sx={{ marginLeft: "8px" }}
             onClick={() => {
-              if (
-                el.position > 1 &&
-                !hasPartsForCategory((el.position - 1).toString())
-              ) {
+              if (el.position > 1 && !hasPartsForCategory(el.position - 1)) {
                 alert(
-                  `Musisz wybrać przynajmniej jedną część z poprzedniej kategorii, aby przejść do etapu ${el.position}.`,
+                  `Musisz wybrać przynajmniej jedną część z poprzedniej kategorii, aby przejść do etapu ${el.position}.`
                 );
                 return;
               }
               navigate(`/creator/${el.position}`);
             }}
-            disabled={
-              el.position > 1 &&
-              !hasPartsForCategory((el.position - 1).toString())
-            }
+            disabled={el.position > 1 && !hasPartsForCategory(el.position - 1)}
           >
             {el.position}
           </Button>
@@ -105,10 +103,7 @@ export const CreatorNavigation: React.FC<NavigationProps> = ({
         onClick={handleGoForward}
         disabled={
           parseInt(id || "1") >= lastStep ||
-          (id === "1" &&
-            consolidatedParts.filter(
-              (part: PartWithQuantity) => part.categoryId === "1",
-            ).length === 0)
+          (id === "1" && !hasPartsForCategory(1))
         }
       >
         Dalej

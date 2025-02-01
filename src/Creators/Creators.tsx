@@ -5,11 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box, Typography } from "@mui/material";
 
 import { Part, PartWithQuantity, Category } from "./components/types";
-import {
-  fetchCategories,
-  fetchCategoriesById,
-  fetchPartsByCategory,
-} from "../api/hooks";
+import { fetchCategories, fetchPartsByCategory } from "../api/hooks";
 import { RootState, addPart, removePart } from "../redux/store";
 import { PartsList } from "./components/PartsListComponent";
 import { SelectedParts } from "./components/SelectedPartComponent";
@@ -25,16 +21,7 @@ export const Creators: React.FC = () => {
     queryFn: fetchCategories,
   });
 
-  const {
-    data: category,
-    isLoading: isCategoryLoading,
-    error: categoryError,
-  } = useQuery<Category>({
-    queryKey: ["category", id],
-    queryFn: () =>
-      id ? fetchCategoriesById(id) : Promise.reject("No ID provided"),
-    enabled: !!id,
-  });
+  const category = categories?.find((cat) => cat.position.toString() === id);
 
   const {
     data: parts,
@@ -42,8 +29,8 @@ export const Creators: React.FC = () => {
     error: partsError,
   } = useQuery<Part[]>({
     queryKey: ["parts", id],
-    queryFn: () => (id ? fetchPartsByCategory(id) : Promise.resolve([])),
-    enabled: !!id,
+    queryFn: () => (category ? fetchPartsByCategory(category.id) : Promise.resolve([])),
+    enabled: !!category,
   });
 
   const globalParts = useSelector((state: RootState) => state.example.parts);
@@ -70,11 +57,11 @@ export const Creators: React.FC = () => {
     if (!categories) return [];
 
     const categoryIdsWithParts = new Set(
-      consolidatedParts.map((part) => part.categoryId),
+      consolidatedParts.map((part) => part.categoryId)
     );
 
     return categories.filter(
-      (category) => !categoryIdsWithParts.has(category.id),
+      (category) => !categoryIdsWithParts.has(category.id)
     );
   }, [categories, consolidatedParts]);
 
@@ -93,7 +80,7 @@ export const Creators: React.FC = () => {
 
   const totalPrice = consolidatedParts.reduce(
     (sum: number, part: PartWithQuantity) => sum + part.price * part.quantity,
-    0,
+    0
   );
 
   const lastStep = categories
@@ -108,12 +95,12 @@ export const Creators: React.FC = () => {
     dispatch(removePart(partId));
   };
 
-  if (isCategoryLoading || isPartsLoading) {
+  if (isPartsLoading) {
     return <div>Loading...</div>;
   }
 
-  if (categoryError) {
-    return <div>Error loading category: {categoryError.message}</div>;
+  if (!category) {
+    return <div>Error: Category not found</div>;
   }
 
   if (partsError) {
@@ -126,13 +113,11 @@ export const Creators: React.FC = () => {
         Kreator wyboru samochodu
       </Typography>
 
-      {category && (
-        <Box>
-          <Typography variant="h6">
-            Etap {id} wybór z kategorii: <b>{category.name}</b>
-          </Typography>
-        </Box>
-      )}
+      <Box>
+        <Typography variant="h6">
+          Etap {id} wybór z kategorii: <b>{category.name}</b>
+        </Typography>
+      </Box>
 
       <Box
         sx={{

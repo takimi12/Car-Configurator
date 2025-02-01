@@ -5,7 +5,7 @@ import {
   deletePart,
   addPart,
   fetchCategories,
-  deleteCategory, // Importujemy nową funkcję
+  deleteCategory,
 } from "../api/hooks";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -21,14 +21,29 @@ import {
   Alert,
 } from "@mui/material";
 
+interface Part {
+  id: string;
+  name: string;
+  price: number;
+  partId: string;
+  categoryId: string;
+}
+
+interface NewPart {
+  name: string;
+  price: string;
+  partId: string;
+}
+
 export const PartialList = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const [newPart, setNewPart] = useState({
+  const [newPart, setNewPart] = useState<NewPart>({
     name: "",
     price: "",
+    partId: "",
   });
 
   const { data: categories } = useQuery({
@@ -61,23 +76,22 @@ export const PartialList = () => {
     mutationFn: addPart,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["parts", id] });
-      setNewPart({ name: "", price: "" });
+      setNewPart({ name: "", price: "", partId: "" });
     },
   });
 
-  // Dodajemy akcję usuwania kategorii
   const deleteCategoryMutation = useMutation({
     mutationFn: deleteCategory,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
-      navigate("/categories"); // Po usunięciu kategorii wracamy do listy kategorii
+      navigate("/categories");
     },
   });
 
   const handleAddPart = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!newPart.name || !newPart.price) {
+    if (!newPart.name || !newPart.price || !newPart.partId) {
       alert("Proszę wypełnić wszystkie pola");
       return;
     }
@@ -87,16 +101,24 @@ export const PartialList = () => {
       return;
     }
 
+    // Create a slug-like partId from the provided value
+    const formattedPartId = newPart.partId.toLowerCase().replace(/\s+/g, '-');
+
     addPartMutation.mutate({
       name: newPart.name,
       price: parseFloat(newPart.price),
+      partId: formattedPartId,
       categoryId: id,
     });
   };
 
   const handleDeleteCategory = () => {
-    if (window.confirm(`Czy na pewno chcesz usunąć kategorię "${categoryName}" i wszystkie części z nią związane?`)) {
-      deleteCategoryMutation.mutate(id!); // Usuwamy kategorię i jej części
+    if (
+      window.confirm(
+        `Czy na pewno chcesz usunąć kategorię "${categoryName}" i wszystkie części z nią związane?`
+      )
+    ) {
+      deleteCategoryMutation.mutate(id!);
     }
   };
 
@@ -137,12 +159,11 @@ export const PartialList = () => {
           >
             Powrót do kategorii
           </Button>
-          {/* Dodajemy przycisk usuwania kategorii */}
           <Button
             variant="contained"
             color="error"
             onClick={handleDeleteCategory}
-            sx={{ mb: 2 }}
+            sx={{ mb: 2, ml: 2 }}
           >
             Usuń kategorię i części
           </Button>
@@ -152,12 +173,15 @@ export const PartialList = () => {
           <Typography variant="body1">Brak części w tej kategorii</Typography>
         ) : (
           <Box display="flex" flexDirection="column" gap={2}>
-            {parts?.map((part) => (
+            {parts?.map((part: Part) => (
               <Card key={part.id} variant="outlined">
                 <CardContent>
                   <Typography variant="h6">{part.name}</Typography>
                   <Typography variant="subtitle1">
                     Cena: {part.price} PLN
+                  </Typography>
+                  <Typography variant="subtitle2" color="textSecondary">
+                    ID części: {part.partId}
                   </Typography>
                 </CardContent>
                 <CardActions>
@@ -183,6 +207,7 @@ export const PartialList = () => {
           flexDirection: "column",
           gap: 2,
           width: "500px",
+          ml: 4,
         }}
       >
         <Typography variant="h4" gutterBottom>
@@ -195,6 +220,16 @@ export const PartialList = () => {
           onChange={(e) =>
             setNewPart((prev) => ({ ...prev, name: e.target.value }))
           }
+          fullWidth
+          required
+        />
+        <TextField
+          label="ID części (np. opening-roof)"
+          value={newPart.partId}
+          onChange={(e) =>
+            setNewPart((prev) => ({ ...prev, partId: e.target.value }))
+          }
+          helperText="Unikalny identyfikator części, np. 'opening-roof'"
           fullWidth
           required
         />

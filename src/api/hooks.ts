@@ -10,6 +10,7 @@ export interface Part {
   name: string;
   price: number;
   categoryId: string;
+  partId:string;
 }
 
 export interface Order {
@@ -57,7 +58,7 @@ export const deleteCategory = async (categoryId: string): Promise<void> => {
   const parts = await fetchPartsByCategory(categoryId);
 
   // Delete all parts for the category
-  await Promise.all(parts.map(part => deletePart(part.id)));
+  await Promise.all(parts.map((part) => deletePart(part.id)));
 
   // Now delete the category itself
   const response = await fetch(`${API_URL}/categories/${categoryId}`, {
