@@ -1,195 +1,190 @@
-Car Configurator / Konfigurator Samochodów
+# Car Configurator
+# Car Configurator
 
-🇬🇧 English Version
+## Project Description
 
-# Project Description
+Car Configurator is a web application that allows users to create a personalized car order. Users can select various parts and accessories for the vehicle, as well as see the total cost of the configuration in real-time. After completing the configuration, they can place an order, which will be saved in the database. This is one of the 4/5 projects completed as part of the React course by Frontowcy.
 
-Car Configurator is a web application that enables users to customize and order their dream car through an intuitive step-by-step process. The application guides users through various car customization options, ranging from basic features to advanced modifications, while providing real-time price updates. Users can save their configurations and resume them later, making the car customization process convenient and user-friendly.
+## Architecture
 
-# Architecture
+The application consists of:
 
-graph TD
-A[Frontend React App] --> B[Redux/Zustand Store]
-A --> C[React Query]
-C --> D[JSON Server API]
-D --> E[(Local Storage)]
-B --> E
+- **Frontend** created with React.js
+- **JSON Server** as a simple backend for data storage
+- **Redux Toolkit/Zustand** for managing global state
+- **React Query** for data fetching and caching management
+- **Local Storage** for storing the user's configuration
+- **Material UI** for component styling
 
-# Tech Stack
+### Workflow:
 
-| **Technology**         | **Description**                                         |
-|------------------------|---------------------------------------------------------|
-| React                  | Frontend framework for building user interfaces        |
-| TypeScript             | Static typing for better code quality and developer experience |
-| Material UI            | Component library for consistent and professional UI design |
-| React Query            | Data fetching, caching, and server state management     |
-| Redux Toolkit / Zustand | Global state management for applications                |
-| React Router           | Navigation and routing management in applications       |
-| JSON Server            | Mock API backend for development and testing           |
-| ESLint                 | Code linting and maintaining code quality              |
-| Prettier               | Code formatting                                         |
-| Husky                  | Git hooks for checking code quality before commits     |
+1. The user selects parts in the configurator.
+2. The application saves the configuration in global state and local storage.
+3. After completing the configuration, the user enters their details.
+4. The order is saved in the database.
+5. The user can browse all submitted orders.
 
-# Local Development
+## Tech Stack
 
-Prerequisites: Node.js v20.\*
+| Technology           | Usage                                     |
+|----------------------|-------------------------------------------|
+| React.js             | User interface                            |
+| Redux Toolkit/Zustand | State management                          |
+| React Query          | Optimizing data fetching                  |
+| JSON Server          | Backend API                               |
+| Material UI          | UI/UX components                          |
+| React Router DOM     | Application navigation                    |
+| Husky + Linter       | Code formatting and checking             |
+| Local Storage        | Storing configuration                     |
+| Local Development    |                                           |
 
-git clone https://github.com/your-username/car-configurator
-cd my-app
+### Requirements:
+- Node.js v20.*
 
-# Install dependencies
-
+## Cloning the Repository
+git clone https://github.com/repo-link
+cd car-configurator
+# Installing dependencies
 npm install
-
-# Start JSON server (in a separate terminal)
-
-json-server --watch db.json --port 3000
-
-# Start development server
-
+# Running the application
 npm run start
 
-# Available Scripts
+# Running JSON Server
+In a separate terminal, run:
 
-| **Command** | **Description**                       |
-| ----------- | ------------------------------------- |
-| dev         | Starts the development server         |
-| server      | Runs the JSON server for mock API     |
-| build       | Builds the application for production |
-| preview     | Serves the built application locally  |
-| lint        | Runs ESLint to check code quality     |
-| lint:fix    | Fixes auto-fixable ESLint issues      |
-| format      | Runs Prettier to format code          |
-| prepare     | Sets up Husky git hooks               |
+npm json-server --watch db.json --port 3001
+# Scripts in the Application
 
-# Features Implemented
+| Script       | Description                                |
+|--------------|--------------------------------------------|
+| start        | Run the app locally                        |
+| build        | Create a build of the application         |
+| test         | Run tests                                  |
+| json-server  | Start a local API server                   |
+| lint         | Check code using ESLint                    |
+| lint:fix     | Automatically fix linter errors            |
+| format       | Format code using Prettier                 |
+| prepare      | Install Husky for commit hooks             |
 
-Multi-step car configuration wizard with category-based progression
+## Live Demo Link
+**Car Configurator - Live Demo**
 
-Real-time price calculation and display
+## Access Requirements
+No login or password required.
 
-Persistent configuration storage using localStorage
+## What Has Been Done?
+- Interactive car order configurator
+- JSON Server as backend for data storage
+- Global configuration state with Redux Toolkit/Zustand
+- Configuration storage in Local Storage
+- Dynamic order cost calculation
+- List of placed orders
+- Styling with Material UI
 
-Admin panel for managing categories and parts
+## Future Plans
+- Add the option to export the configuration to a PDF file
+- Integrate with a payment system
+- Allow saving orders in the Firebase database
+- Develop a user system
 
-Comprehensive order management system
-
-Responsive Material UI design
-
-Form validation for user details
-
-Order history and configuration summary
-
-Automatic routing based on configuration steps
-
-Real-time configuration updates
-
-Future Plans
-
-Implement user accounts and authentication
-
-Add comparison feature between different configurations
-
-Integrate with real car manufacturer APIs
-
-Add PDF export for configurations
-
-Implement configuration sharing functionality
-
-Expand customization options and categories
-
-# Contact
-
-Email: tomek12olech@gmail.com
-GitHub: [takimi12](https://github.com/takimi12)
-LinkedIn:
-
-🇵🇱 Polska Wersja
-
-Opis Projektu
-
-Konfigurator Samochodów to aplikacja internetowa umożliwiająca użytkownikom dostosowanie i zamówienie wymarzonego samochodu poprzez intuicyjny proces krok po kroku. Aplikacja prowadzi użytkowników przez różne kategorie opcji personalizacji, od podstawowych funkcji po zaawansowane modyfikacje, zapewniając jednocześnie aktualizacje cen w czasie rzeczywistym. Użytkownicy mogą zapisywać swoje konfiguracje i wracać do nich później, co sprawia, że proces personalizacji samochodu jest wygodny i przyjazny dla użytkownika.
-
-Architektura
-
-graph TD
-A[Frontend React App] --> B[Redux/Zustand Store]
-A --> C[React Query]
-C --> D[JSON Server API]
-D --> E[(Local Storage)]
-B --> E
-
-# Stack Technologiczny
+## Contact
+- **Email**: tomek12olech@gmail.com
+- **GitHub**: [takimi12](https://github.com/takimi12)
+- **LinkedIn**: [LinkedIn Profile](#)
 
 
+## Opis projektu
 
-| **Technologia**        | **Opis**                                                |
-|------------------------|--------------------------------------------------------|
-| React                  | Framework frontendowy do budowy interfejsu użytkownika |
-| TypeScript             | Typowanie statyczne dla lepszej jakości kodu i doświadczenia developera |
-| Material UI            | Biblioteka komponentów dla spójnego i profesjonalnego designu UI |
-| React Query            | Pobieranie danych, cachowanie i zarządzanie stanem serwera |
-| Redux Toolkit / Zustand | Globalne zarządzanie stanem aplikacji                  |
-| React Router           | Obsługa nawigacji i routingu w aplikacjach             |
-| JSON Server            | Mock API backendowe do rozwoju i testowania           |
-| ESLint                 | Linting kodu i utrzymanie jego jakości                 |
-| Prettier               | Formatowanie kodu                                      |
-| Husky                  | Git hooks do sprawdzania jakości kodu przed commitem   |
+Car Configurator to aplikacja webowa umożliwiająca użytkownikom tworzenie spersonalizowanego zamówienia samochodu. Użytkownik może wybierać różne części i dodatki do pojazdu, a także zobaczyć całkowity koszt konfiguracji w czasie rzeczywistym. Po zakończeniu konfiguracji może złożyć zamówienie, które zostanie zapisane w bazie danych. Jest to 4/5 projektów realizowanych w ramach kursu React od Frontowców.
 
+## Architektura
 
-# Lokalny Development
+Aplikacja składa się z:
 
-Wymagania: Node.js v20.\*
+- **Frontend** stworzonego w React.js
+- **JSON Server** jako prostego backendu do przechowywania danych
+- **Redux Toolkit/Zustand** do zarządzania stanem globalnym
+- **React Query** do zarządzania pobieraniem i cache'owaniem danych
+- **Local Storage** do przechowywania konfiguracji użytkownika
+- **Material UI** do stylizacji komponentów
 
-git clone https://github.com/your-username/car-configurator
-cd my-app
+### Schemat działania:
 
+1. Użytkownik wybiera części w kreatorze.
+2. Aplikacja zapisuje konfigurację w stanie globalnym i local storage.
+3. Po zakończeniu konfiguracji użytkownik podaje swoje dane.
+4. Zamówienie jest zapisywane w bazie danych.
+5. Użytkownik może przeglądać wszystkie złożone zamówienia.
+
+## Tech Stack
+
+| Technologia        | Zastosowanie                               |
+|--------------------|--------------------------------------------|
+| React.js           | Interfejs użytkownika                      |
+| Redux Toolkit/Zustand | Zarządzanie stanem                       |
+| React Query        | Optymalizacja pobierania danych            |
+| JSON Server        | Backend API                                |
+| Material UI        | UI/UX komponenty                           |
+| React Router DOM   | Nawigacja w aplikacji                      |
+| Husky + Linter     | Formatowanie i sprawdzanie kodu            |
+| Local Storage      | Przechowywanie konfiguracji                |
+| Local Development  |                                            |
+
+### Wymagania:
+- Node.js v20.*
+
+## Klonowanie repozytorium
+
+git clone https://github.com/repo-link
+cd car-configurator
 # Instalacja zależności
 
 npm install
-
-# Uruchomienie JSON servera (w osobnym terminalu)
-
-json-server --watch db.json --port 3000
-
-# Uruchomienie serwera deweloperskiego
+# Uruchomienie aplikacji
 
 npm run start
 
-# Dostępne Skrypty
+# Uruchomienie JSON Server
 
-| **Polecenie** | **Opis**                                           |
-| ------------- | -------------------------------------------------- |
-| dev           | Uruchamia serwer deweloperski                      |
-| server        | Uruchamia JSON server dla mockowego API            |
-| build         | Buduje aplikację do wersji produkcyjnej            |
-| preview       | Serwuje zbudowaną aplikację lokalnie               |
-| lint          | Uruchamia ESLint, aby sprawdzić jakość kodu        |
-| lint:fix      | Naprawia automatycznie naprawialne problemy ESLint |
-| format        | Uruchamia Prettier, aby sformatować kod            |
-| prepare       | Ustawia git hooki Husky                            |
+w osobnym terminalu wpisz npm json-server --watch db.json --port 3001
 
-# Zaimplementowane Funkcje
+# Skrypty w aplikacji
 
-Wieloetapowy kreator konfiguracji samochodu z progresją opartą na kategoriach
-Obliczanie i wyświetlanie ceny w czasie rzeczywistym
-Trwałe przechowywanie konfiguracji przy użyciu localStorage
-Panel administracyjny do zarządzania kategoriami i częściami
-Kompleksowy system zarządzania zamówieniami
-Responsywny design z Material UI
-Walidacja formularza danych użytkownika
-Historia zamówień i podsumowanie konfiguracji
-Automatyczne routowanie na podstawie kroków konfiguracji
-Aktualizacje konfiguracji w czasie rzeczywistym
+| Skrypt       | Opis                                           |
+|--------------|------------------------------------------------|
+| `start`      | Uruchomienie aplikacji lokalnie                |
+| `build`      | Tworzenie builda aplikacji                     |
+| `test`       | Uruchomienie testów                            |
+| `json-server`| Uruchomienie lokalnego serwera API             |
+| `lint`       | Sprawdzanie kodu ESLintem                      |
+| `lint:fix`   | Automatyczna poprawa błędów lintera            |
+| `format`     | Formatowanie kodu za pomocą Prettier          |
+| `prepare`    | Instalacja Husky dla kontroli commitów         |
 
-# Plany na Przyszłość
+## Link do wersji live
 
-Implementacja kont użytkowników i uwierzytelniania
-Dodanie funkcji porównywania różnych konfiguracji
-Integracja z rzeczywistymi API producentów samochodów
-Dodanie eksportu konfiguracji do PDF
-Implementacja funkcji udostępniania konfiguracji
-Rozszerzenie opcji i kategorii dostosowywania
+ [Car Configurator - Live Demo](#)
+
+## Dostępy
+
+Nie są wymagane loginy ani hasła.
+
+## Co zostało zrobione?
+
+- Interaktywny kreator zamówienia samochodu
+- JSON Server jako backend do przechowywania danych
+- Globalny stan konfiguracji w Redux Toolkit/Zustand
+- Obsługa przechowywania konfiguracji w Local Storage
+- Dynamiczne wyliczanie kosztu zamówienia
+- Lista złożonych zamówień
+- Stylizacja za pomocą Material UI
+
+## Plany na przyszłość
+
+- Dodanie opcji eksportu konfiguracji do pliku PDF
+- Integracja z systemem płatności
+- Dodanie możliwości zapisania zamówienia w bazie Firebase
+- Rozbudowanie systemu użytkowników
 
 # Kontakt
 
