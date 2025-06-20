@@ -14,7 +14,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { addCategory, deleteCategory } from "../api/hooks";
-import { useCategories } from "../hooks/useCategories"; 
+import { useCategories } from "../hooks/useCategories";
 
 export interface Category {
   id: string;
@@ -28,10 +28,9 @@ export const CategoryList: React.FC = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { data: categories, isLoading } = useCategories(); 
+  const { data: categories, isLoading } = useCategories();
 
-
-  console.log(categories, 'component')
+  console.log(categories, "component");
 
   const addCategoryMutation = useMutation({
     mutationFn: addCategory,

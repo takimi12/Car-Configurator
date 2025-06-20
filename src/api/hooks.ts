@@ -34,9 +34,18 @@ export const deleteCategory = async (categoryId: string): Promise<void> => {
   await handleResponse(response);
 };
 
+export const fetchCategories = async (): Promise<Category[]> => {
+  const response = await fetch(`${API_URL}/categories`);
 
+  if (!response.ok) {
+    throw new Error("Failed to fetch categories");
+  }
 
+  const data = await response.json(); 
+  console.log(data, "data from API");
 
+  return data;
+};
 
 export const fetchPartsByCategory = async (
   categoryId: string,

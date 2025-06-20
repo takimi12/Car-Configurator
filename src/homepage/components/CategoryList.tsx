@@ -16,7 +16,7 @@ import {
   DirectionsBike as WheelsIcon,
   Build as ToolsIcon,
 } from "@mui/icons-material";
-import { useCategories } from "../../hooks/useCategories"; 
+import { useCategories } from "../../hooks/useCategories";
 import { Category } from "../../types";
 
 const iconMap: Record<string, React.ReactElement> = {
@@ -28,7 +28,7 @@ const iconMap: Record<string, React.ReactElement> = {
 };
 
 export const CategoryList: React.FC = () => {
-  const { data: categories, isLoading } = useCategories(); 
+  const { data: categories, isLoading } = useCategories();
 
   if (isLoading) {
     return (

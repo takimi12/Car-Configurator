@@ -5,9 +5,11 @@ export const useCategories = () => {
   return useQuery<Category[]>({
     queryKey: ["categories"],
     queryFn: async () => {
-      const response = await fetch("https://car-configurator-nine.vercel.app/categories");
+      const response = await fetch(
+        "https://car-configurator-nine.vercel.app/categories",
+      );
 
-      console.log(response, 'response hook')
+      console.log(response, "response hook");
 
       if (!response.ok) {
         throw new Error("Failed to fetch categories");
