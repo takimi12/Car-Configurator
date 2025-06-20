@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchOrders, Order } from "../api/hooks";
+import { fetchOrders,  } from "../api/hooks";
 import {
   Container,
   Typography,
@@ -17,6 +17,7 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import { Order } from "../types";
 
 export const OrdersList: React.FC = () => {
   const {

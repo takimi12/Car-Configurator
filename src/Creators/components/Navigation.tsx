@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Category, PartWithQuantity } from "./types";
+import { Category, PartWithQuantity } from "../../types/index";
 
 interface NavigationProps {
   id?: string;

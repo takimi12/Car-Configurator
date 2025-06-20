@@ -4,12 +4,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Typography } from "@mui/material";
 
-import { Part, PartWithQuantity, Category } from "./components/types";
 import { fetchCategories, fetchPartsByCategory } from "../api/hooks";
 import { RootState, addPart, removePart } from "../redux/store";
 import { PartsList } from "./components/PartsListComponent";
 import { SelectedParts } from "./components/SelectedPartComponent";
 import { CreatorNavigation } from "./components/Navigation";
+import { Part, PartWithQuantity } from "../types";
 
 export const Creators: React.FC = () => {
   const { id } = useParams<{ id?: string }>();

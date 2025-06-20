@@ -20,20 +20,9 @@ import {
   CircularProgress,
   Alert,
 } from "@mui/material";
+import { NewPart, Part } from "../types";
 
-interface Part {
-  id: string;
-  name: string;
-  price: number;
-  partId: string;
-  categoryId: string;
-}
 
-interface NewPart {
-  name: string;
-  price: string;
-  partId: string;
-}
 
 export const PartialList = () => {
   const { id } = useParams<{ id: string }>();
@@ -101,7 +90,6 @@ export const PartialList = () => {
       return;
     }
 
-    // Create a slug-like partId from the provided value
     const formattedPartId = newPart.partId.toLowerCase().replace(/\s+/g, "-");
 
     addPartMutation.mutate({

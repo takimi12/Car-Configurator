@@ -13,7 +13,8 @@ import {
   ListItemText,
   Divider,
 } from "@mui/material";
-import { OrderSubmitData, submitOrder } from "../api/hooks";
+import { submitOrder } from "../api/hooks";
+import { OrderSubmitData } from "../types";
 
 interface OrderFormData {
   firstName: string;

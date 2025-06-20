@@ -10,7 +10,7 @@ import {
   Box,
   Link,
 } from "@mui/material";
-import { PartWithQuantity, Category } from "./types";
+import { PartWithQuantity, Category } from "../../types/index";
 
 interface SelectedPartsProps {
   consolidatedParts: PartWithQuantity[];

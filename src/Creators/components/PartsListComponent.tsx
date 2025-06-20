@@ -7,7 +7,7 @@ import {
   Button,
   Paper,
 } from "@mui/material";
-import { Part } from "./types";
+import { Part } from "../../types/index";
 
 interface PartsListProps {
   parts?: Part[];

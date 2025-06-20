@@ -1,34 +1,5 @@
-export interface Category {
-  id: string;
-  name: string;
-  identifier: string;
-  position: number;
-}
+import { Category, Order, OrderSubmitData, Part } from "../types";
 
-export interface Part {
-  id: string;
-  name: string;
-  price: number;
-  categoryId: string;
-  partId: string;
-}
-
-export interface Order {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  value: number;
-  details: string;
-}
-
-export interface OrderSubmitData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  value: number;
-  details: string;
-}
 
 const API_URL = "http://localhost:3000";
 
@@ -54,13 +25,10 @@ export const addCategory = async (
 };
 
 export const deleteCategory = async (categoryId: string): Promise<void> => {
-  // Fetch parts for the category
   const parts = await fetchPartsByCategory(categoryId);
 
-  // Delete all parts for the category
   await Promise.all(parts.map((part) => deletePart(part.id)));
 
-  // Now delete the category itself
   const response = await fetch(`${API_URL}/categories/${categoryId}`, {
     method: "DELETE",
   });

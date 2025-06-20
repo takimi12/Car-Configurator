@@ -18,13 +18,8 @@ import {
   DirectionsBike as WheelsIcon,
   Build as ToolsIcon,
 } from "@mui/icons-material";
+import { Category } from "../../types";
 
-interface Category {
-  id: string;
-  name: string;
-  identifier: string;
-  position: number;
-}
 
 const iconMap: Record<string, React.ReactElement> = {
   dach: <HomeIcon />,
