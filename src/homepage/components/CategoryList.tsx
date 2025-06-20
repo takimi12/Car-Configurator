@@ -9,8 +9,6 @@ import {
   Stack,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { fetchCategories } from "../../api/hooks";
 import {
   Home as HomeIcon,
   AcUnit as AcUnitIcon,
@@ -18,6 +16,7 @@ import {
   DirectionsBike as WheelsIcon,
   Build as ToolsIcon,
 } from "@mui/icons-material";
+import { useCategories } from "../../hooks/useCategories"; 
 import { Category } from "../../types";
 
 const iconMap: Record<string, React.ReactElement> = {
@@ -29,10 +28,7 @@ const iconMap: Record<string, React.ReactElement> = {
 };
 
 export const CategoryList: React.FC = () => {
-  const { data: categories, isLoading } = useQuery({
-    queryKey: ["categories"],
-    queryFn: fetchCategories,
-  });
+  const { data: categories, isLoading } = useCategories(); 
 
   if (isLoading) {
     return (
