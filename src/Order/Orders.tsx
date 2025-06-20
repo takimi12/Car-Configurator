@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchOrders,  } from "../api/hooks";
+import { fetchOrders } from "../api/hooks";
 import {
   Container,
   Typography,

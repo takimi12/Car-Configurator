@@ -20,7 +20,6 @@ import {
 } from "@mui/icons-material";
 import { Category } from "../../types";
 
-
 const iconMap: Record<string, React.ReactElement> = {
   dach: <HomeIcon />,
   koła: <WheelsIcon />,

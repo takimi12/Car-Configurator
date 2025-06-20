@@ -1,7 +1,6 @@
 import { Category, Order, OrderSubmitData, Part } from "../types";
 
-
-const API_URL = "http://localhost:3000";
+const API_URL = "https://car-configurator-psi.vercel.app";
 
 const handleResponse = async (response: Response) => {
   if (!response.ok) {

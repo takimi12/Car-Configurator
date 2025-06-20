@@ -22,8 +22,6 @@ import {
 } from "@mui/material";
 import { NewPart, Part } from "../types";
 
-
-
 export const PartialList = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
