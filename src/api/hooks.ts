@@ -1,6 +1,6 @@
 import { Category, Order, OrderSubmitData, Part } from "../types";
 
-const API_URL = "https://car-configurator-nine.vercel.app/";
+const API_URL = "https://car-configurator-nine.vercel.app";
 
 const handleResponse = async (response: Response) => {
   if (!response.ok) {
