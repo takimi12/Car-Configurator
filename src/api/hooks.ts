@@ -41,7 +41,7 @@ export const fetchCategories = async (): Promise<Category[]> => {
     throw new Error("Failed to fetch categories");
   }
 
-  const data = await response.json(); 
+  const data = await response.json();
   console.log(data, "data from API");
 
   return data;
