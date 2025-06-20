@@ -6,7 +6,7 @@ export const useCategories = () => {
     queryKey: ["categories"],
     queryFn: async () => {
       const response = await fetch(
-        "https://car-configurator-nine.vercel.app/categories",
+        "https://car-configurator-nine.vercel.app/api/categories",
       );
 
       if (!response.ok) {
