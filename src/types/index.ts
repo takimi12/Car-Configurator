@@ -16,11 +16,12 @@ export interface NewCategory {
 
 // Część w bazie danych
 export interface Part {
-  id: string;
+  _id: string; // MongoDB ObjectId jako string
+  id: string; // Twoje własne ID
   name: string;
   price: number;
+  partId: string; // Slug/identyfikator części
   categoryId: string;
-  partId?: string;
 }
 
 // Nowa część do dodania

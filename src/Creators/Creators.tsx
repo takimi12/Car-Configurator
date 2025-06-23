@@ -31,14 +31,17 @@ export const Creators: React.FC = () => {
 
   const globalParts = useSelector((state: RootState) => state.example.parts);
 
+  // Zaktualizowane consolidatedParts - używamy teraz _id jako unikalnego identyfikatora
   const consolidatedParts = useMemo<PartWithQuantity[]>(() => {
     const map = new Map<string, PartWithQuantity>();
     globalParts.forEach((p: Part) => {
-      const existing = map.get(p.id);
+      // Używamy _id lub id jako klucza (w zależności od tego, które pole jest dostępne)
+      const partKey = p._id || p.id;
+      const existing = map.get(partKey);
       if (existing) {
         existing.quantity++;
       } else {
-        map.set(p.id, { ...p, quantity: 1 });
+        map.set(partKey, { ...p, quantity: 1 });
       }
     });
     return Array.from(map.values());
@@ -72,6 +75,8 @@ export const Creators: React.FC = () => {
     : 1;
 
   const handleAddPart = (part: Part) => dispatch(addPart(part));
+  
+  // Zaktualizowane handleRemovePart - używamy _id lub id
   const handleRemovePart = (partId: string) => dispatch(removePart(partId));
 
   if (isCatLoading || isPartsLoading) {

@@ -5,9 +5,11 @@ import { combineReducers } from "redux";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Part {
-  id: string;
+  _id: string; // MongoDB ObjectId jako string
+  id: string; // Twoje własne ID
   name: string;
   price: number;
+  partId: string; // Slug/identyfikator części
   categoryId: string;
 }
 
@@ -36,7 +38,15 @@ export const exampleSlice = createSlice({
       state.parts.push(action.payload);
     },
     removePart: (state, action: PayloadAction<string>) => {
-      state.parts = state.parts.filter((part) => part.id !== action.payload);
+      // Usuwamy część po _id lub id (sprawdzamy oba pola)
+      state.parts = state.parts.filter((part) => {
+        const partMongoId = part._id;
+        const partCustomId = part.id;
+        return partMongoId !== action.payload && partCustomId !== action.payload;
+      });
+    },
+    clearParts: (state) => {
+      state.parts = [];
     },
   },
 });
@@ -58,7 +68,7 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-export const { increment, decrement, setParts, addPart, removePart } =
+export const { increment, decrement, setParts, addPart, removePart, clearParts } =
   exampleSlice.actions;
 
 export type AppDispatch = typeof store.dispatch;
