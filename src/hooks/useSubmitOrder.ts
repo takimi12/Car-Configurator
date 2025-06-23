@@ -4,7 +4,10 @@ import { OrderSubmitData } from "../types";
 
 const API_URL = "https://car-configurator-nine.vercel.app/";
 
-export const useSubmitOrder = (onSuccess: () => void, onError?: (error: unknown) => void) => {
+export const useSubmitOrder = (
+  onSuccess: () => void,
+  onError?: (error: unknown) => void,
+) => {
   return useMutation({
     mutationFn: async (orderData: OrderSubmitData) => {
       const response = await fetch(`${API_URL}/orders`, {

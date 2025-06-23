@@ -35,7 +35,7 @@ export const OrderForm: React.FC = () => {
 
   const totalPrice = globalParts.reduce(
     (sum: number, part: Part) => sum + part.price,
-    0
+    0,
   );
   const orderDetails = globalParts.map((part: Part) => part.name).join(", ");
 
@@ -48,7 +48,7 @@ export const OrderForm: React.FC = () => {
     (error) => {
       console.error("Error submitting order:", error);
       alert("Wystąpił błąd podczas składania zamówienia");
-    }
+    },
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

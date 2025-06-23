@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Container, Typography, Button, Box } from "@mui/material";
 import { CategoryList } from "../Category/CategoriesList";
 
-export const Creator: React.FC = () => {
+export const Creators: React.FC = () => {
   const { isLoading } = useGetCategories();
 
   if (isLoading) {

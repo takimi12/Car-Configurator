@@ -6,11 +6,17 @@ import pluginReact from "eslint-plugin-react";
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
-  { languageOptions: { globals: globals.browser } }, // To jest już poprawne
+  { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
+    // Dodaj sekcję 'settings' na tym poziomie
+    settings: {
+      react: {
+        version: "detect", // To jest kluczowe!
+      },
+    },
     // Ogólne zasady, które chcesz stosować w całym projekcie
     rules: {
       // Zmienia błąd nieużywanych zmiennych na ostrzeżenie
@@ -31,7 +37,6 @@ export default [
         ...globals.es2020, // Dodaj globalne zmienne dla ES2020
       },
     },
-    // Usunięto klucz 'env', ponieważ jest on nieobsługiwany w Flat Config na tym poziomie
     rules: {
       // Wyłącz zakaz importów CommonJS (require())
       "@typescript-eslint/no-require-imports": "off",
