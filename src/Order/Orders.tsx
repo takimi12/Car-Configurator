@@ -1,33 +1,12 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchOrders } from "../api/hooks";
-import {
-  Container,
-  Typography,
-  List,
-  ListItem,
-  Paper,
-  Box,
-  CircularProgress,
-  Card,
-  CardContent,
-  Chip,
-  Stack,
-} from "@mui/material";
+import { Container, Typography, List, ListItem, Paper, Box, CircularProgress, Card, CardContent, Chip, Stack } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import { Order } from "../types";
+import { useOrders } from "../hooks/useOrders";
 
 export const OrdersList: React.FC = () => {
-  const {
-    data: orders,
-    isLoading,
-    error,
-  } = useQuery<Order[], Error>({
-    queryKey: ["orders"],
-    queryFn: fetchOrders,
-  });
+  const { data: orders, isLoading, error } = useOrders();
 
   if (isLoading) {
     return (
@@ -45,7 +24,7 @@ export const OrdersList: React.FC = () => {
     );
   }
 
-  if (error instanceof Error) {
+  if (error) {
     return (
       <Box
         sx={{
