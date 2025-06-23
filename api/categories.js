@@ -1,28 +1,21 @@
-// api/categories.js
-import { MongoClient } from "mongodb"; // Usunięto ObjectId, ponieważ nie jest używane w GET/POST na poziomie całej kolekcji
-import dotenv from "dotenv"; // Pozostawiono dla spójności lokalnego developmentu
+import { MongoClient, ObjectId } from "mongodb";
+import dotenv from "dotenv";
 
-// Załaduj zmienne środowiskowe
 dotenv.config();
 
-// Połączenie MongoDB URI
 const uri =
   process.env.MONGODB_URI ||
   "mongodb+srv://tomek12olech:7MytflC2STM5Wroe@cluster.etrcyrp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster";
-const dbName = "Cars"; // Zgodnie z Twoją oryginalną nazwą bazy danych
+const dbName = "Cars";
 
-// Sprawdzenie, czy URI jest ustawione
 if (!uri) {
   console.error("❌ Missing MongoDB connection string in MONGODB_URI");
   throw new Error("MONGODB_URI not set");
 }
 
-// Zmienna globalna dla buforowania klienta MongoDB
 let cachedClient = null;
 
-// Główna funkcja handlera dla Vercel API Route
 export default async function handler(req, res) {
-  // Sprawdź i połącz się z bazą danych, jeśli nie ma buforowanego klienta
   if (!cachedClient) {
     try {
       const client = new MongoClient(uri, {
@@ -41,11 +34,10 @@ export default async function handler(req, res) {
   }
 
   const db = cachedClient.db(dbName);
-  const categoriesCollection = db.collection("categories"); // Zmieniłem nazwę zmiennej dla czytelności
+  const categoriesCollection = db.collection("categories");
 
   try {
     if (req.method === "POST") {
-      // Dodaj nową kategorię
       const result = await categoriesCollection.insertOne(req.body);
       return res.status(201).json({
         insertedId: result.insertedId,
@@ -54,13 +46,27 @@ export default async function handler(req, res) {
     }
 
     if (req.method === "GET") {
-      // Pobierz wszystkie kategorie
       const data = await categoriesCollection.find({}).toArray();
       return res.status(200).json(data);
     }
 
-    // Obsługa nieobsługiwanych metod HTTP
-    res.setHeader("Allow", ["GET", "POST"]);
+    if (req.method === "DELETE") {
+      const { id } = req.query;
+
+      if (!id || !ObjectId.isValid(id)) {
+        return res.status(400).json({ error: "Invalid or missing category id" });
+      }
+
+      const result = await categoriesCollection.deleteOne({ _id: new ObjectId(id) });
+
+      if (result.deletedCount === 0) {
+        return res.status(404).json({ error: "Category not found" });
+      }
+
+      return res.status(200).json({ message: "Category deleted successfully" });
+    }
+
+    res.setHeader("Allow", ["GET", "POST", "DELETE"]);
     return res.status(405).end(`Method ${req.method} Not Allowed`);
   } catch (err) {
     console.error("❌ API handler error:", err);
