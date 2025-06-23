@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 
-import { fetchCategories, fetchPartsByCategory } from "../api/hooks";
+import { useGetCategories } from "../hooks/useGetCategories";
+import { useGetPartsByCategory } from "../hooks/useGetPartsByCategory";
 import { RootState, addPart, removePart } from "../redux/store";
 import { PartsList } from "./components/PartsListComponent";
 import { SelectedParts } from "./components/SelectedPartComponent";
@@ -16,54 +16,38 @@ export const Creators: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { data: categories } = useQuery({
-    queryKey: ["categories"],
-    queryFn: fetchCategories,
-  });
-
+  const {
+    data: categories,
+    isLoading: isCatLoading,
+    error: catError,
+  } = useGetCategories();
   const category = categories?.find((cat) => cat.position.toString() === id);
 
   const {
-    data: parts,
+    data: parts = [],
     isLoading: isPartsLoading,
     error: partsError,
-  } = useQuery<Part[]>({
-    queryKey: ["parts", id],
-    queryFn: () =>
-      category ? fetchPartsByCategory(category.id) : Promise.resolve([]),
-    enabled: !!category,
-  });
+  } = useGetPartsByCategory(category?._id);
 
   const globalParts = useSelector((state: RootState) => state.example.parts);
 
-  const consolidatedParts = React.useMemo(() => {
-    const partMap = new Map<string, PartWithQuantity>();
-
-    globalParts.forEach((part: Part) => {
-      if (partMap.has(part.id)) {
-        const existingPart = partMap.get(part.id)!;
-        partMap.set(part.id, {
-          ...existingPart,
-          quantity: existingPart.quantity + 1,
-        });
+  const consolidatedParts = useMemo<PartWithQuantity[]>(() => {
+    const map = new Map<string, PartWithQuantity>();
+    globalParts.forEach((p: Part) => {
+      const existing = map.get(p.id);
+      if (existing) {
+        existing.quantity++;
       } else {
-        partMap.set(part.id, { ...part, quantity: 1 });
+        map.set(p.id, { ...p, quantity: 1 });
       }
     });
-
-    return Array.from(partMap.values());
+    return Array.from(map.values());
   }, [globalParts]);
 
-  const missingCategories = React.useMemo(() => {
+  const missingCategories = useMemo(() => {
     if (!categories) return [];
-
-    const categoryIdsWithParts = new Set(
-      consolidatedParts.map((part) => part.categoryId),
-    );
-
-    return categories.filter(
-      (category) => !categoryIdsWithParts.has(category.id),
-    );
+    const has = new Set(consolidatedParts.map((p) => p.categoryId));
+    return categories.filter((cat) => !has.has(cat._id));
   }, [categories, consolidatedParts]);
 
   const [wasFullyPopulated, setWasFullyPopulated] = useState(false);
@@ -73,63 +57,73 @@ export const Creators: React.FC = () => {
     if (hadMissingCategories && missingCategories.length === 0) {
       setWasFullyPopulated(true);
     }
-
     if (missingCategories.length > 0) {
       setHadMissingCategories(true);
     }
   }, [missingCategories.length, hadMissingCategories]);
 
   const totalPrice = consolidatedParts.reduce(
-    (sum: number, part: PartWithQuantity) => sum + part.price * part.quantity,
+    (sum, p) => sum + p.price * p.quantity,
     0,
   );
 
   const lastStep = categories
-    ? Math.max(...categories.map((el) => el.position))
+    ? Math.max(...categories.map((c) => c.position))
     : 1;
 
-  const handleAddPart = (part: Part) => {
-    dispatch(addPart(part));
-  };
+  const handleAddPart = (part: Part) => dispatch(addPart(part));
+  const handleRemovePart = (partId: string) => dispatch(removePart(partId));
 
-  const handleRemovePart = (partId: string) => {
-    dispatch(removePart(partId));
-  };
+  if (isCatLoading || isPartsLoading) {
+    return (
+      <Box display="flex" justifyContent="center" mt={5}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
-  if (isPartsLoading) {
-    return <div>Loading...</div>;
+  if (catError) {
+    return (
+      <Typography color="error">
+        Błąd ładowania kategorii: {(catError as Error).message}
+      </Typography>
+    );
   }
 
   if (!category) {
-    return <div>Error: Category not found</div>;
+    return (
+      <Typography color="error">
+        Kategoria o etapie {id} nie została znaleziona.
+      </Typography>
+    );
   }
 
   if (partsError) {
-    return <div>Error loading parts: {partsError.message}</div>;
+    return (
+      <Typography color="error">
+        Błąd ładowania części: {(partsError as Error).message}
+      </Typography>
+    );
   }
 
   return (
-    <Box sx={{ padding: "24px", maxWidth: "1200px", margin: "50px auto" }}>
+    <Box sx={{ padding: 4, maxWidth: 1200, margin: "40px auto" }}>
       <Typography variant="h4" gutterBottom>
         Kreator wyboru samochodu
       </Typography>
-
-      <Box>
-        <Typography variant="h6">
-          Etap {id} wybór z kategorii: <b>{category.name}</b>
-        </Typography>
-      </Box>
+      <Typography variant="h6" gutterBottom>
+        Etap {id} – wybór z kategorii: <b>{category.name}</b>
+      </Typography>
 
       <Box
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          gap: "24px",
-          marginTop: "24px",
+          gap: 3,
+          mt: 3,
         }}
       >
         <PartsList parts={parts} onAddPart={handleAddPart} />
-
         <SelectedParts
           consolidatedParts={consolidatedParts}
           missingCategories={missingCategories}

@@ -1,7 +1,7 @@
 // Pełna kategoria jaką zwraca backend
 export interface Category {
-  _id: string;         // MongoDB ID
-  id?: string;         // Opcjonalny dodatkowy ID, jeśli występuje
+  _id: string; // MongoDB ID
+  id?: string; // Opcjonalny dodatkowy ID, jeśli występuje
   name: string;
   identifier: string;
   position: number;

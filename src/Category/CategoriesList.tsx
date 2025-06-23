@@ -17,8 +17,6 @@ import { useGetCategories } from "../hooks/useGetCategories";
 import { useAddCategory } from "../hooks/useAddCategory";
 import { useDeleteCategory } from "../hooks/useDeleteCategory";
 
-
-
 export const CategoryList: React.FC = () => {
   const [newCategory, setNewCategory] = useState({ name: "", identifier: "" });
   const navigate = useNavigate();
@@ -70,9 +68,7 @@ export const CategoryList: React.FC = () => {
                   <CardActions>
                     <Button
                       startIcon={<VisibilityIcon />}
-                      onClick={() =>
-                        navigate(`/category/part/${category._id}`)
-                      }
+                      onClick={() => navigate(`/category/part/${category._id}`)}
                       color="primary"
                     >
                       Zobacz części
