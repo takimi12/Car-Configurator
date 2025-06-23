@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Box, Typography, CircularProgress } from "@mui/material";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import { Box, Typography, CircularProgress } from "@mui/material";
 import { useGetCategories } from "../hooks/useGetCategories";
 import { useGetPartsByCategory } from "../hooks/useGetPartsByCategory";
+
 import { RootState, addPart, removePart } from "../redux/store";
 import { PartsList } from "./components/PartsListComponent";
 import { SelectedParts } from "./components/SelectedPartComponent";
@@ -21,6 +23,8 @@ export const Creators: React.FC = () => {
     isLoading: isCatLoading,
     error: catError,
   } = useGetCategories();
+
+  console.log(categories, 'categories')
   const category = categories?.find((cat) => cat.position.toString() === id);
 
   const {
@@ -112,7 +116,7 @@ export const Creators: React.FC = () => {
         Kreator wyboru samochodu
       </Typography>
       <Typography variant="h6" gutterBottom>
-        Etap {id} – wybór z kategorii: <b>{category.name}</b>
+        Etap {id}  wybór z kategorii: <b>{category.name}</b>
       </Typography>
 
       <Box

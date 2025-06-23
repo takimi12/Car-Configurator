@@ -29,7 +29,9 @@ export default async function handler(req, res) {
       cachedClient = client;
     } catch (err) {
       console.error("❌ Błąd połączenia z MongoDB:", err);
-      return res.status(500).json({ error: "Nie udało się połączyć z bazą danych" });
+      return res
+        .status(500)
+        .json({ error: "Nie udało się połączyć z bazą danych" });
     }
   }
 
@@ -57,7 +59,9 @@ export default async function handler(req, res) {
       if (!id || !ObjectId.isValid(id)) {
         return res
           .status(400)
-          .json({ error: "Nieprawidłowy lub brakujący identyfikator kategorii" });
+          .json({
+            error: "Nieprawidłowy lub brakujący identyfikator kategorii",
+          });
       }
 
       // Możesz rozpocząć sesję dla transakcji, aby zapewnić atomowość
@@ -84,16 +88,16 @@ export default async function handler(req, res) {
         }
 
         // await session.commitTransaction();
-        return res.status(200).json({ message: "Kategoria usunięta pomyślnie" });
+        return res
+          .status(200)
+          .json({ message: "Kategoria usunięta pomyślnie" });
       } catch (transactionError) {
         // await session.abortTransaction();
         console.error("❌ Transakcja nie powiodła się:", transactionError);
-        return res
-          .status(500)
-          .json({
-            error: "Nie udało się usunąć kategorii i powiązanych części",
-            details: transactionError.message,
-          });
+        return res.status(500).json({
+          error: "Nie udało się usunąć kategorii i powiązanych części",
+          details: transactionError.message,
+        });
       } finally {
         // session.endSession();
       }

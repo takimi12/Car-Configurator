@@ -18,15 +18,21 @@ export const useDeleteCategory = () => {
 
         // Użyj Promise.allSettled, aby zobaczyć wyniki wszystkich obietnic
         const deletionResults = await Promise.allSettled(
-          parts.map(async (part: { _id: string }) => { // Zmieniono part.id na part._id na podstawie ObjectId z MongoDB
+          parts.map(async (part: { _id: string }) => {
+            // Zmieniono part.id na part._id na podstawie ObjectId z MongoDB
             const deletePartResponse = await fetch(
               `https://car-configurator-nine.vercel.app/api/parts/${part._id}`, // Użyj part._id
               { method: "DELETE" },
             );
             if (!deletePartResponse.ok) {
               const errorText = await deletePartResponse.text();
-              console.error(`Nie udało się usunąć części ${part._id}:`, errorText);
-              throw new Error("Nie udało się usunąć części " + part._id + ": " + errorText);
+              console.error(
+                `Nie udało się usunąć części ${part._id}:`,
+                errorText,
+              );
+              throw new Error(
+                "Nie udało się usunąć części " + part._id + ": " + errorText,
+              );
             }
           }),
         );
@@ -36,8 +42,13 @@ export const useDeleteCategory = () => {
           (result) => result.status === "rejected",
         );
         if (failedDeletions.length > 0) {
-          console.error("Niektóre części nie zostały usunięte:", failedDeletions);
-          throw new Error("Nie udało się usunąć wszystkich powiązanych części.");
+          console.error(
+            "Niektóre części nie zostały usunięte:",
+            failedDeletions,
+          );
+          throw new Error(
+            "Nie udało się usunąć wszystkich powiązanych części.",
+          );
         }
 
         const response = await fetch(
@@ -64,6 +75,6 @@ export const useDeleteCategory = () => {
     onError: (error) => {
       console.error("Błąd mutacji:", error.message);
       // Tutaj możesz wyświetlić powiadomienie (np. toast)
-    }
+    },
   });
 };
