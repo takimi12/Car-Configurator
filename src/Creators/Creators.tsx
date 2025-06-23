@@ -24,7 +24,7 @@ export const Creators: React.FC = () => {
     error: catError,
   } = useGetCategories();
 
-  console.log(categories, 'categories')
+  console.log(categories, "categories");
   const category = categories?.find((cat) => cat.position.toString() === id);
 
   const {
@@ -116,7 +116,7 @@ export const Creators: React.FC = () => {
         Kreator wyboru samochodu
       </Typography>
       <Typography variant="h6" gutterBottom>
-        Etap {id}  wybór z kategorii: <b>{category.name}</b>
+        Etap {id} wybór z kategorii: <b>{category.name}</b>
       </Typography>
 
       <Box

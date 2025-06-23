@@ -1,13 +1,5 @@
-import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  fetchPartsByCategory,
-  deletePart,
-  addPart,
-  fetchCategories,
-  deleteCategory,
-} from "../api/hooks";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import React,{ useState } from "react";
 import {
   Box,
   Button,
@@ -21,11 +13,18 @@ import {
   Alert,
 } from "@mui/material";
 import { NewPart, Part } from "../types";
+import { useGetPartsByCategory } from "../hooks/useGetPartsByCategory";
+import { useAddPart } from "../hooks/useAddPart";
+import { useDeletePart } from "../hooks/useDeletePart";
+import { useDeleteCategory } from "../hooks/useDeleteCategory";
+import { useCategoryName } from "../hooks/useCategoryName";
 
 export const PartialList = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+
+  const categoryName = useCategoryName(id);
+  const { data: parts, isLoading, isError, error } = useGetPartsByCategory(id);
 
   const [newPart, setNewPart] = useState<NewPart>({
     name: "",
@@ -33,78 +32,37 @@ export const PartialList = () => {
     partId: "",
   });
 
-  const { data: categories } = useQuery({
-    queryKey: ["categories"],
-    queryFn: fetchCategories,
-  });
-
-  const categoryName =
-    categories?.find((category) => category.id === id)?.name || id;
-
-  const {
-    data: parts,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["parts", id],
-    queryFn: () => (id ? fetchPartsByCategory(id) : Promise.resolve([])),
-    enabled: !!id,
-  });
-
-  const deletePartMutation = useMutation({
-    mutationFn: deletePart,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["parts", id] });
-    },
-  });
-
-  const addPartMutation = useMutation({
-    mutationFn: addPart,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["parts", id] });
-      setNewPart({ name: "", price: "", partId: "" });
-    },
-  });
-
-  const deleteCategoryMutation = useMutation({
-    mutationFn: deleteCategory,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-      navigate("/categories");
-    },
-  });
+  const addPartMutation = useAddPart(id, () =>
+    setNewPart({ name: "", price: "", partId: "" }),
+  );
+  const deletePartMutation = useDeletePart(id);
+  const deleteCategoryMutation = useDeleteCategory();
 
   const handleAddPart = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!newPart.name || !newPart.price || !newPart.partId) {
-      alert("Proszę wypełnić wszystkie pola");
-      return;
-    }
-
-    if (!id) {
-      alert("Błąd: Brak identyfikatora kategorii");
+    if (!newPart.name || !newPart.price || !newPart.partId || !id) {
+      alert(
+        "Proszę wypełnić wszystkie pola i upewnij się, że kategoria istnieje.",
+      );
       return;
     }
 
     const formattedPartId = newPart.partId.toLowerCase().replace(/\s+/g, "-");
-
     addPartMutation.mutate({
       name: newPart.name,
-      price: parseFloat(newPart.price),
+      price: newPart.price,
       partId: formattedPartId,
-      categoryId: id,
     });
   };
 
   const handleDeleteCategory = () => {
     if (
-      window.confirm(
-        `Czy na pewno chcesz usunąć kategorię "${categoryName}" i wszystkie części z nią związane?`,
-      )
+      window.confirm(`Czy na pewno chcesz usunąć kategorię "${categoryName}"?`)
     ) {
-      deleteCategoryMutation.mutate(id!);
+      deleteCategoryMutation.mutate(id!, {
+        onSuccess: () => navigate("/categories"),
+      });
     }
   };
 
@@ -133,6 +91,7 @@ export const PartialList = () => {
 
   return (
     <Box display="flex" justifyContent="center" marginTop={10}>
+      {/* Lista części */}
       <Box>
         <Box sx={{ mb: 4 }}>
           <Typography variant="h4" gutterBottom>
@@ -155,7 +114,7 @@ export const PartialList = () => {
           </Button>
         </Box>
 
-        {parts && parts.length === 0 ? (
+        {parts?.length === 0 ? (
           <Typography variant="body1">Brak części w tej kategorii</Typography>
         ) : (
           <Box display="flex" flexDirection="column" gap={2}>
@@ -184,6 +143,8 @@ export const PartialList = () => {
           </Box>
         )}
       </Box>
+
+      {/* Formularz dodawania */}
       <Box
         component="form"
         onSubmit={handleAddPart}
@@ -199,7 +160,6 @@ export const PartialList = () => {
         <Typography variant="h4" gutterBottom>
           Dodaj części w kategorii {categoryName}
         </Typography>
-
         <TextField
           label="Nazwa części"
           value={newPart.name}
@@ -215,7 +175,7 @@ export const PartialList = () => {
           onChange={(e) =>
             setNewPart((prev) => ({ ...prev, partId: e.target.value }))
           }
-          helperText="Unikalny identyfikator części, np. 'opening-roof'"
+          helperText="Unikalny identyfikator części"
           fullWidth
           required
         />
@@ -234,7 +194,6 @@ export const PartialList = () => {
           variant="contained"
           color="primary"
           disabled={addPartMutation.isPending}
-          sx={{ whiteSpace: "nowrap" }}
         >
           {addPartMutation.isPending ? "Dodawanie..." : "Dodaj część"}
         </Button>

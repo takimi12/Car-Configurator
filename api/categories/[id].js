@@ -57,11 +57,9 @@ export default async function handler(req, res) {
       const { id } = req.query;
 
       if (!id || !ObjectId.isValid(id)) {
-        return res
-          .status(400)
-          .json({
-            error: "Nieprawidłowy lub brakujący identyfikator kategorii",
-          });
+        return res.status(400).json({
+          error: "Nieprawidłowy lub brakujący identyfikator kategorii",
+        });
       }
 
       // Możesz rozpocząć sesję dla transakcji, aby zapewnić atomowość

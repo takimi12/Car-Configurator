@@ -1,18 +1,25 @@
-// hooks/useGetPartsByCategory.ts
 import { useQuery } from "@tanstack/react-query";
-import { fetchPartsByCategory } from "../api/hooks";
 import { Part } from "../types";
 
 export const useGetPartsByCategory = (categoryId?: string) => {
   return useQuery<Part[]>({
     queryKey: ["parts", categoryId],
-    queryFn: () => {
+    queryFn: async () => {
       if (!categoryId) {
-        return Promise.resolve([]);
+        return [];
       }
-      return fetchPartsByCategory(categoryId);
+
+      const response = await fetch(
+        `https://car-configurator-nine.vercel.app/api/parts?categoryId=${categoryId}`,
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch parts");
+      }
+
+      const data = await response.json();
+      return data;
     },
-    enabled: !!categoryId, // zapytanie tylko gdy mamy categoryId
-    staleTime: 1000 * 60 * 5, // opcjonalnie: cache na 5 minut
+    enabled: !!categoryId,
+    staleTime: 1000 * 60 * 5,
   });
 };
