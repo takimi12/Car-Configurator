@@ -1,5 +1,17 @@
 import React from "react";
-import { Container, Typography, List, ListItem, Paper, Box, CircularProgress, Card, CardContent, Chip, Stack } from "@mui/material";
+import {
+  Container,
+  Typography,
+  List,
+  ListItem,
+  Paper,
+  Box,
+  CircularProgress,
+  Card,
+  CardContent,
+  Chip,
+  Stack,
+} from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
 import { useSelector, useDispatch } from "react-redux";
-import { Part, RootState, AppDispatch } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -13,7 +11,9 @@ import {
   ListItemText,
   Divider,
 } from "@mui/material";
-import { submitOrder } from "../api/hooks";
+
+import { useSubmitOrder } from "../hooks/useSubmitOrder"; // ← użycie nowego hooka
+import { Part, RootState, AppDispatch } from "../redux/store";
 import { OrderSubmitData } from "../types";
 
 interface OrderFormData {
@@ -35,22 +35,21 @@ export const OrderForm: React.FC = () => {
 
   const totalPrice = globalParts.reduce(
     (sum: number, part: Part) => sum + part.price,
-    0,
+    0
   );
   const orderDetails = globalParts.map((part: Part) => part.name).join(", ");
 
-  const orderMutation = useMutation({
-    mutationFn: submitOrder,
-    onSuccess: () => {
+  const orderMutation = useSubmitOrder(
+    () => {
       dispatch({ type: "example/setParts", payload: [] });
       alert("Zamówienie zostało złożone pomyślnie!");
       navigate("/orders");
     },
-    onError: (error) => {
+    (error) => {
       console.error("Error submitting order:", error);
       alert("Wystąpił błąd podczas składania zamówienia");
-    },
-  });
+    }
+  );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

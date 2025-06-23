@@ -1,15 +1,11 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchCategories } from "../api/hooks";
+import { useGetCategories } from "../hooks/useGetCategories"; // Nowy hook
 import { Link } from "react-router-dom";
 import { Container, Typography, Button, Box } from "@mui/material";
 import { CategoryList } from "../Category/CategoriesList";
 
 export const Creator: React.FC = () => {
-  const { isLoading } = useQuery({
-    queryKey: ["categories"],
-    queryFn: fetchCategories,
-  });
+  const { isLoading } = useGetCategories(); // Użycie nowego hooka
 
   if (isLoading) {
     return (
