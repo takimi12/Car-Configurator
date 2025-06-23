@@ -82,9 +82,7 @@ export const CategoryList: React.FC = () => {
                     </Button>
                     <Button
                       startIcon={<DeleteIcon />}
-                      onClick={() =>
-                        deleteCategoryMutation.mutate(category.id)
-                      }
+                      onClick={() => deleteCategoryMutation.mutate(category.id)}
                       color="error"
                     >
                       usuń kategorię
