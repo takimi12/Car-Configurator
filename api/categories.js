@@ -47,12 +47,10 @@ export default async function handler(req, res) {
     if (req.method === "POST") {
       // Dodaj nową kategorię
       const result = await categoriesCollection.insertOne(req.body);
-      return res
-        .status(201)
-        .json({
-          insertedId: result.insertedId,
-          message: "Category added successfully",
-        });
+      return res.status(201).json({
+        insertedId: result.insertedId,
+        message: "Category added successfully",
+      });
     }
 
     if (req.method === "GET") {

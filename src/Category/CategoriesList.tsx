@@ -11,10 +11,11 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { addCategory, deleteCategory } from "../api/hooks";
-import { useCategories } from "../hooks/useCategories";
+
+import { useGetCategories } from "../hooks/useGetCategories";
+import { useAddCategory } from "../hooks/useAddCategory";
+import { useDeleteCategory } from "../hooks/useDeleteCategory";
 
 export interface Category {
   id: string;
@@ -25,27 +26,11 @@ export interface Category {
 
 export const CategoryList: React.FC = () => {
   const [newCategory, setNewCategory] = useState({ name: "", identifier: "" });
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { data: categories, isLoading } = useCategories();
-
-  console.log(categories, "component");
-
-  const addCategoryMutation = useMutation({
-    mutationFn: addCategory,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-      setNewCategory({ name: "", identifier: "" });
-    },
-  });
-
-  const deleteCategoryMutation = useMutation({
-    mutationFn: deleteCategory,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-    },
-  });
+  const { data: categories, isLoading } = useGetCategories();
+  const addCategoryMutation = useAddCategory();
+  const deleteCategoryMutation = useDeleteCategory();
 
   const handleAddCategory = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,6 +39,7 @@ export const CategoryList: React.FC = () => {
       identifier: newCategory.identifier,
       position: (categories?.length || 0) + 1,
     });
+    setNewCategory({ name: "", identifier: "" });
   };
 
   if (isLoading)
@@ -96,7 +82,9 @@ export const CategoryList: React.FC = () => {
                     </Button>
                     <Button
                       startIcon={<DeleteIcon />}
-                      onClick={() => deleteCategoryMutation.mutate(category.id)}
+                      onClick={() =>
+                        deleteCategoryMutation.mutate(category.id)
+                      }
                       color="error"
                     >
                       usuń kategorię

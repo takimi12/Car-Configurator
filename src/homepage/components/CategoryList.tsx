@@ -16,7 +16,7 @@ import {
   DirectionsBike as WheelsIcon,
   Build as ToolsIcon,
 } from "@mui/icons-material";
-import { useCategories } from "../../hooks/useCategories";
+import { useCategories } from "../../hooks/useGetCategories";
 import { Category } from "../../types";
 
 const iconMap: Record<string, React.ReactElement> = {
