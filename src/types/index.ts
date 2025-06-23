@@ -1,10 +1,20 @@
+// Pełna kategoria jaką zwraca backend
 export interface Category {
-  id: string;
+  _id: string;         // MongoDB ID
+  id?: string;         // Opcjonalny dodatkowy ID, jeśli występuje
   name: string;
-  position: number;
   identifier: string;
+  position: number;
 }
 
+// Typ do dodawania nowej kategorii (wysyłany z frontu)
+export interface NewCategory {
+  name: string;
+  identifier: string;
+  position: number;
+}
+
+// Część w bazie danych
 export interface Part {
   id: string;
   name: string;
@@ -13,16 +23,19 @@ export interface Part {
   partId?: string;
 }
 
+// Nowa część do dodania
 export interface NewPart {
   name: string;
   price: string;
   partId: string;
 }
 
+// Część z ilością (np. do koszyka)
 export interface PartWithQuantity extends Part {
   quantity: number;
 }
 
+// Pełne zamówienie z bazy danych
 export interface Order {
   id: string;
   firstName: string;
@@ -32,6 +45,7 @@ export interface Order {
   details: string;
 }
 
+// Dane do wysłania zamówienia
 export interface OrderSubmitData {
   firstName: string;
   lastName: string;

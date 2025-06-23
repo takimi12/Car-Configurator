@@ -1,26 +1,21 @@
-// hooks/useAddCategory.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Category } from "../types";
+import { NewCategory } from "../types";
 
 export const useAddCategory = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (category: Omit<Category, "id">): Promise<Category> => {
-      const response = await fetch(
-        "https://car-configurator-nine.vercel.app/api/categories",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(category),
+    mutationFn: async (newCategory: NewCategory) => {
+      const response = await fetch("/api/categories", {
+        method: "POST",
+        body: JSON.stringify(newCategory),
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
-
+      });
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || "Failed to add category");
+        throw new Error("Failed to add category");
       }
-
       return response.json();
     },
     onSuccess: () => {

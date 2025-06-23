@@ -17,12 +17,7 @@ import { useGetCategories } from "../hooks/useGetCategories";
 import { useAddCategory } from "../hooks/useAddCategory";
 import { useDeleteCategory } from "../hooks/useDeleteCategory";
 
-export interface Category {
-  id: string;
-  name: string;
-  identifier: string;
-  position: number;
-}
+
 
 export const CategoryList: React.FC = () => {
   const [newCategory, setNewCategory] = useState({ name: "", identifier: "" });
@@ -64,7 +59,7 @@ export const CategoryList: React.FC = () => {
           {categories
             ?.sort((a, b) => a.position - b.position)
             .map((category) => (
-              <Box key={category.id} sx={{ width: "100%" }}>
+              <Box key={category._id} sx={{ width: "100%" }}>
                 <Card variant="outlined">
                   <CardContent>
                     <Typography variant="h6">{category.name}</Typography>
@@ -75,14 +70,18 @@ export const CategoryList: React.FC = () => {
                   <CardActions>
                     <Button
                       startIcon={<VisibilityIcon />}
-                      onClick={() => navigate(`/category/part/${category.id}`)}
+                      onClick={() =>
+                        navigate(`/category/part/${category._id}`)
+                      }
                       color="primary"
                     >
                       Zobacz części
                     </Button>
                     <Button
                       startIcon={<DeleteIcon />}
-                      onClick={() => deleteCategoryMutation.mutate(category.id)}
+                      onClick={() =>
+                        deleteCategoryMutation.mutate(category._id)
+                      }
                       color="error"
                     >
                       usuń kategorię

@@ -1,4 +1,3 @@
-// hooks/useDeleteCategory.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useDeleteCategory = () => {
@@ -6,7 +5,6 @@ export const useDeleteCategory = () => {
 
   return useMutation({
     mutationFn: async (categoryId: string) => {
-      // Fetch parts by category
       const partsResponse = await fetch(
         `https://car-configurator-nine.vercel.app/api/parts?categoryId=${categoryId}`,
       );
@@ -15,7 +13,6 @@ export const useDeleteCategory = () => {
       }
       const parts = await partsResponse.json();
 
-      // Delete all parts
       await Promise.all(
         parts.map(async (part: { id: string }) => {
           const deletePartResponse = await fetch(
@@ -28,7 +25,6 @@ export const useDeleteCategory = () => {
         }),
       );
 
-      // Delete category
       const response = await fetch(
         `https://car-configurator-nine.vercel.app/api/categories/${categoryId}`,
         {
