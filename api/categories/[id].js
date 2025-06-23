@@ -1,84 +1,110 @@
-// @ts-ignore
-const { MongoClient, ObjectId } = require("mongodb");
+import { MongoClient, ObjectId } from "mongodb";
+import dotenv from "dotenv";
 
-// @ts-ignore
-const uri = process.env.MONGODB_URI || "";
+dotenv.config();
+
+const uri =
+  process.env.MONGODB_URI ||
+  "mongodb+srv://tomek12olech:7MytflC2STM5Wroe@cluster.etrcyrp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster";
+const dbName = "Cars";
 
 if (!uri) {
-  console.error("❌ Missing MongoDB connection string in MONGODB_URI");
-  throw new Error("MONGODB_URI not set");
+  console.error("❌ Brak ciągu połączenia MongoDB w MONGODB_URI");
+  throw new Error("MONGODB_URI nie jest ustawione");
 }
 
 let cachedClient = null;
-let cachedDb = null;
 
-async function connectToDatabase() {
-  if (cachedClient && cachedDb) {
-    return { client: cachedClient, db: cachedDb };
+export default async function handler(req, res) {
+  if (!cachedClient) {
+    try {
+      const client = new MongoClient(uri, {
+        serverApi: {
+          version: "1",
+          strict: true,
+          deprecationErrors: true,
+        },
+      });
+      await client.connect();
+      cachedClient = client;
+    } catch (err) {
+      console.error("❌ Błąd połączenia z MongoDB:", err);
+      return res.status(500).json({ error: "Nie udało się połączyć z bazą danych" });
+    }
   }
 
-  try {
-    const client = new MongoClient(uri, {
-      serverApi: {
-        version: "1",
-        strict: true,
-        deprecationErrors: true,
-      },
-    });
-    await client.connect();
-    cachedClient = client;
-    cachedDb = client.db("car-configurator-db");
-    return { client: cachedClient, db: cachedDb };
-  } catch (err) {
-    console.error("❌ MongoDB connection error:", err);
-    throw new Error("Failed to connect to database");
-  }
-}
+  const db = cachedClient.db(dbName);
+  const categoriesCollection = db.collection("categories");
+  const partsCollection = db.collection("parts"); // Zakładam, że masz kolekcję 'parts'
 
-// @ts-ignore
-module.exports = async (req, res) => {
   try {
-    const { db } = await connectToDatabase();
-    const { id } = req.query; // id będzie dostępne z dynamicznej trasy
-    const categoriesCollection = db.collection("categories");
-    const partsCollection = db.collection("parts"); // Potrzebne do usuwania powiązanych części
-
-    if (!ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid Category ID" });
+    if (req.method === "POST") {
+      const result = await categoriesCollection.insertOne(req.body);
+      return res.status(201).json({
+        insertedId: result.insertedId,
+        message: "Kategoria dodana pomyślnie",
+      });
     }
 
     if (req.method === "GET") {
-      const category = await categoriesCollection.findOne({
-        _id: new ObjectId(id),
-      });
-      if (!category) {
-        return res.status(404).json({ message: "Category not found" });
-      }
-      return res
-        .status(200)
-        .json({ ...category, id: category._id.toHexString() });
+      const data = await categoriesCollection.find({}).toArray();
+      return res.status(200).json(data);
     }
 
     if (req.method === "DELETE") {
-      // Przed usunięciem kategorii, usuń powiązane części
-      // Zakładamy, że categoryId w częściach to string odpowiadający _id kategorii
-      await partsCollection.deleteMany({ categoryId: id });
+      const { id } = req.query;
 
-      const result = await categoriesCollection.deleteOne({
-        _id: new ObjectId(id),
-      });
-      if (result.deletedCount === 0) {
-        return res.status(404).json({ message: "Category not found" });
+      if (!id || !ObjectId.isValid(id)) {
+        return res
+          .status(400)
+          .json({ error: "Nieprawidłowy lub brakujący identyfikator kategorii" });
       }
-      return res.status(204).end(); // No Content
+
+      // Możesz rozpocząć sesję dla transakcji, aby zapewnić atomowość
+      // const session = cachedClient.startSession();
+      // session.startTransaction();
+
+      try {
+        // Usuń wszystkie części powiązane z tą kategorią
+        const deletePartsResult = await partsCollection.deleteMany({
+          categoryId: new ObjectId(id), // Zakładam, że części odwołują się do kategorii przez categoryId
+        });
+        console.log(
+          `Usunięto ${deletePartsResult.deletedCount} części dla kategorii ${id}`,
+        );
+
+        // Następnie usuń kategorię
+        const result = await categoriesCollection.deleteOne({
+          _id: new ObjectId(id),
+        });
+
+        if (result.deletedCount === 0) {
+          // await session.abortTransaction();
+          return res.status(404).json({ error: "Kategoria nie znaleziona" });
+        }
+
+        // await session.commitTransaction();
+        return res.status(200).json({ message: "Kategoria usunięta pomyślnie" });
+      } catch (transactionError) {
+        // await session.abortTransaction();
+        console.error("❌ Transakcja nie powiodła się:", transactionError);
+        return res
+          .status(500)
+          .json({
+            error: "Nie udało się usunąć kategorii i powiązanych części",
+            details: transactionError.message,
+          });
+      } finally {
+        // session.endSession();
+      }
     }
 
-    res.setHeader("Allow", ["GET", "DELETE"]);
-    return res.status(405).end(`Method ${req.method} Not Allowed`);
-  } catch (error) {
-    console.error("❌ API handler error:", error);
+    res.setHeader("Allow", ["GET", "POST", "DELETE"]);
+    return res.status(405).end(`Metoda ${req.method} Niedozwolona`);
+  } catch (err) {
+    console.error("❌ Błąd handlera API:", err);
     return res
       .status(500)
-      .json({ error: error.message || "Internal Server Error" });
+      .json({ error: "Wewnętrzny błąd serwera", details: err.message });
   }
-};
+}

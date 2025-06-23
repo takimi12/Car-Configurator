@@ -54,10 +54,14 @@ export default async function handler(req, res) {
       const { id } = req.query;
 
       if (!id || !ObjectId.isValid(id)) {
-        return res.status(400).json({ error: "Invalid or missing category id" });
+        return res
+          .status(400)
+          .json({ error: "Invalid or missing category id" });
       }
 
-      const result = await categoriesCollection.deleteOne({ _id: new ObjectId(id) });
+      const result = await categoriesCollection.deleteOne({
+        _id: new ObjectId(id),
+      });
 
       if (result.deletedCount === 0) {
         return res.status(404).json({ error: "Category not found" });
