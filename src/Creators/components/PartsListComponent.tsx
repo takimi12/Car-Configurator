@@ -21,7 +21,7 @@ export const PartsList: React.FC<PartsListProps> = ({ parts, onAddPart }) => {
 
   const isPartSelected = (part: Part) => {
     return selectedParts.some(
-      (selected) => selected._id === part._id || selected.id === part.id
+      (selected) => selected._id === part._id || selected.id === part.id,
     );
   };
 

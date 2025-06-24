@@ -79,10 +79,7 @@ export const SelectedParts: React.FC<SelectedPartsProps> = ({
               <li key={cat.id}>
                 {cat.name}{" "}
                 {wasFullyPopulated && (
-                  <Link
-                    href={`/creator/${cat.position}`}
-                    underline="hover"
-                  >
+                  <Link href={`/creator/${cat.position}`} underline="hover">
                     (krok {cat.position})
                   </Link>
                 )}

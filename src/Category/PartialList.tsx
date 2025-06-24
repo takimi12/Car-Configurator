@@ -26,7 +26,6 @@ export const PartialList = () => {
   const categoryName = useCategoryName(id);
   const { data: parts, isLoading, isError, error } = useGetParts();
 
-
   const [newPart, setNewPart] = useState<NewPart>({
     name: "",
     price: "",

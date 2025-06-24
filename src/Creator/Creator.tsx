@@ -1,11 +1,11 @@
 import React from "react";
-import { useGetCategories } from "../hooks/useGetCategories"; // Nowy hook
+import { useGetCategories } from "../hooks/useGetCategories"; 
 import { Link } from "react-router-dom";
 import { Container, Typography, Button, Box } from "@mui/material";
 import { CategoryList } from "../Category/CategoriesList";
 
 export const Creator: React.FC = () => {
-  const { isLoading } = useGetCategories(); // Użycie nowego hooka
+  const { isLoading } = useGetCategories(); 
 
   if (isLoading) {
     return (

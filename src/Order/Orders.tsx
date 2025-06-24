@@ -102,7 +102,6 @@ export const OrdersList: React.FC = () => {
           {orders?.map((order) => {
             const { _id, firstName, lastName, email, value, details } = order;
 
-
             return (
               <ListItem
                 key={_id}
@@ -129,21 +128,27 @@ export const OrdersList: React.FC = () => {
                       alignItems="center"
                       justifyContent="space-between"
                     >
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
                         <PersonIcon />
                         <Typography variant="h6">
                           {firstName} {lastName}
                         </Typography>
                       </Box>
 
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
                         <EmailIcon color="secondary" />
                         <Typography variant="body1" color="textSecondary">
                           {email}
                         </Typography>
                       </Box>
 
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
                         <AccountBalanceIcon />
                         <Chip
                           label={`PLN ${value}`}

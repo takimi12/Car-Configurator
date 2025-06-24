@@ -84,9 +84,7 @@ export default async function handler(req, res) {
       const { id } = req.query; // ID powinno być przekazane jako parametr zapytania
 
       if (!id || !ObjectId.isValid(id)) {
-        return res
-          .status(400)
-          .json({ error: "Invalid or missing part id" });
+        return res.status(400).json({ error: "Invalid or missing part id" });
       }
 
       const result = await partsCollection.deleteOne({ _id: new ObjectId(id) });

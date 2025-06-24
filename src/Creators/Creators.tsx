@@ -28,11 +28,9 @@ export const Creators: React.FC = () => {
     data: parts = [],
     isLoading: isPartsLoading,
     error: partsError,
-  } = useGetParts(category?.id || null); 
-
+  } = useGetParts(category?.id || null);
 
   const globalParts = useSelector((state: RootState) => state.example.parts);
-
 
   const consolidatedParts = useMemo<PartWithQuantity[]>(() => {
     const map = new Map<string, PartWithQuantity>();
@@ -51,9 +49,8 @@ export const Creators: React.FC = () => {
   const missingCategories = useMemo(() => {
     if (!categories) return [];
     const has = new Set(consolidatedParts.map((p) => p.categoryId));
-    return categories.filter((cat) => cat.id && !has.has(cat.id)); 
+    return categories.filter((cat) => cat.id && !has.has(cat.id));
   }, [categories, consolidatedParts]);
-
 
   const [wasFullyPopulated, setWasFullyPopulated] = useState(false);
   const [hadMissingCategories, setHadMissingCategories] = useState(false);
@@ -77,7 +74,7 @@ export const Creators: React.FC = () => {
     : 1;
 
   const handleAddPart = (part: Part) => dispatch(addPart(part));
-  
+
   const handleRemovePart = (partId: string) => dispatch(removePart(partId));
 
   if (isCatLoading || isPartsLoading) {

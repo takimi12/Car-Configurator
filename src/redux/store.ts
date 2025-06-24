@@ -44,7 +44,8 @@ export const exampleSlice = createSlice({
     },
     addPart: (state, action: PayloadAction<Part>) => {
       const exists = state.parts.some(
-        (part) => part._id === action.payload._id || part.id === action.payload.id
+        (part) =>
+          part._id === action.payload._id || part.id === action.payload.id,
       );
       if (!exists) {
         state.parts.push(action.payload);
