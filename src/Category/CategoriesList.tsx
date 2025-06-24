@@ -13,9 +13,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
 
-import { useGetCategories } from "../hooks/useGetCategories";
-import { useAddCategory } from "../hooks/useAddCategory";
-import { useDeleteCategory } from "../hooks/useDeleteCategory";
+import { useGetCategories } from "../hooks/categories/useGetCategories";
+import { useAddCategory } from "../hooks/categories/useAddCategory";
+import { useDeleteCategory } from "../hooks/categories/useDeleteCategory";
 
 export const CategoryList: React.FC = () => {
   const [newCategory, setNewCategory] = useState({ name: "", identifier: "" });

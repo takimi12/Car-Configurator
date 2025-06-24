@@ -6,9 +6,7 @@ export const useOrders = () => {
   return useQuery<Order[], Error>({
     queryKey: ["orders"],
     queryFn: async () => {
-      const response = await fetch(
-        `http://localhost:3002/orders`,
-      );
+      const response = await fetch(`http://localhost:3002/orders`);
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);

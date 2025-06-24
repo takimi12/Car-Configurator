@@ -5,9 +5,12 @@ export const useDeleteCategory = () => {
 
   return useMutation({
     mutationFn: async (categoryId: string) => {
-      const response = await fetch(`http://localhost:3002/categories/${categoryId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://car-configurator-nine.vercel.app/api/categories/${categoryId}`,
+        {
+          method: "DELETE",
+        },
+      );
 
       if (!response.ok) {
         throw new Error("Failed to delete category");

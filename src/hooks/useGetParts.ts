@@ -6,9 +6,7 @@ export const useGetParts = (
   return useQuery<Part[]>({
     queryKey: ["parts", categoryId],
     queryFn: async () => {
-      const response = await fetch(
-        `http://localhost:3002/parts`,
-      );
+      const response = await fetch(`http://localhost:3002/parts`);
       if (!response.ok) {
         throw new Error("Failed to fetch parts");
       }

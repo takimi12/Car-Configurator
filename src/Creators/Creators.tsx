@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Typography, CircularProgress } from "@mui/material";
 
-import { useGetCategories } from "../hooks/useGetCategories";
+import { useGetCategories } from "../hooks/categories/useGetCategories";
 import { useGetParts } from "../hooks/useGetParts";
 import { RootState, addPart, removePart } from "../redux/store";
 import { PartsList } from "./components/PartsListComponent";

@@ -16,8 +16,8 @@ import { NewPart, Part } from "../types";
 import { useGetParts } from "../hooks/useGetParts";
 import { useAddPart } from "../hooks/useAddPart";
 import { useDeletePart } from "../hooks/useDeletePart";
-import { useDeleteCategory } from "../hooks/useDeleteCategory";
-import { useCategoryName } from "../hooks/useCategoryName";
+import { useDeleteCategory } from "../hooks/categories/useDeleteCategory";
+import { useCategoryName } from "../hooks/categories/useCategoryName";
 
 export const PartialList = () => {
   const { id } = useParams<{ id: string }>();
