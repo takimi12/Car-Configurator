@@ -5,7 +5,12 @@ export const useDeletePart = (categoryId: string | undefined) => {
 
   return useMutation({
     mutationFn: async (partId: string) => {
-      const response = await fetch(`http://localhost:3002/parts/${partId}`, {
+      const response = await fetch(
+        `https://car-configurator-nine.vercel.app/api/parts/${partId}`,
+
+        // `http://localhost:3002/parts/${partId}`
+        
+         {
         method: "DELETE",
       });
       if (!response.ok) {

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box, Typography, CircularProgress } from "@mui/material";
 
 import { useGetCategories } from "../hooks/categories/useGetCategories";
-import { useGetParts } from "../hooks/useGetParts";
+import { useGetParts } from "../hooks/parts/useGetParts";
 import { RootState, addPart, removePart } from "../redux/store";
 import { PartsList } from "./components/PartsListComponent";
 import { SelectedParts } from "./components/SelectedPartComponent";
@@ -29,6 +29,9 @@ export const Creators: React.FC = () => {
     isLoading: isPartsLoading,
     error: partsError,
   } = useGetParts(category?.id || null);
+
+
+  console.log(parts, 'parts')
 
   const globalParts = useSelector((state: RootState) => state.example.parts);
 

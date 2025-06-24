@@ -1,12 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { Part } from "../types";
+import { Part } from "../../types";
 export const useGetParts = (
   categoryId?: string | number | undefined | null,
 ) => {
   return useQuery<Part[]>({
     queryKey: ["parts", categoryId],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:3002/parts`);
+      const response = await fetch(
+        "https://car-configurator-nine.vercel.app/api/parts",
+        // `http://localhost:3002/parts`
+        );
       if (!response.ok) {
         throw new Error("Failed to fetch parts");
       }

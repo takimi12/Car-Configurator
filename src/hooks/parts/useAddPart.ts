@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { NewPart } from "../types";
+import { NewPart } from "../../types";
 
 export const useAddPart = (
   categoryId: string | undefined,
@@ -9,7 +9,10 @@ export const useAddPart = (
 
   return useMutation({
     mutationFn: async (newPart: NewPart) => {
-      const response = await fetch("http://localhost:3002/parts", {
+      const response = await fetch(
+        "https://car-configurator-nine.vercel.app/api/parts",
+        // "http://localhost:3002/parts",
+         {
         method: "POST",
         body: JSON.stringify({ ...newPart, categoryId }),
         headers: {

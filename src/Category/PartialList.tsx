@@ -13,18 +13,40 @@ import {
   Alert,
 } from "@mui/material";
 import { NewPart, Part } from "../types";
-import { useGetParts } from "../hooks/useGetParts";
-import { useAddPart } from "../hooks/useAddPart";
-import { useDeletePart } from "../hooks/useDeletePart";
+import { useGetParts } from "../hooks/parts/useGetParts";
+import { useAddPart } from "../hooks/parts/useAddPart";
+import { useDeletePart } from "../hooks/parts/useDeletePart";
 import { useDeleteCategory } from "../hooks/categories/useDeleteCategory";
 import { useCategoryName } from "../hooks/categories/useCategoryName";
+import { useGetCategories } from "../hooks/categories/useGetCategories";
 
 export const PartialList = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const categoryName = useCategoryName(id);
-  const { data: parts, isLoading, isError, error } = useGetParts();
+
+
+
+
+
+  const {
+    data: categories,
+    isLoading: isCatLoading,
+    error: catError,
+  } = useGetCategories();
+
+
+  const category = categories?.find((cat) => cat.id === id);
+
+
+  const {
+    data: parts = [],
+    isLoading,
+    error,
+    isError
+  } = useGetParts(category?.id || null);
+
 
   const [newPart, setNewPart] = useState<NewPart>({
     name: "",
@@ -91,7 +113,6 @@ export const PartialList = () => {
 
   return (
     <Box display="flex" justifyContent="center" marginTop={10}>
-      {/* Lista części */}
       <Box>
         <Box sx={{ mb: 4 }}>
           <Typography variant="h4" gutterBottom>
@@ -115,11 +136,11 @@ export const PartialList = () => {
         </Box>
 
         {parts?.length === 0 ? (
-          <Typography variant="body1">Brak części w tej kategorii</Typography>
+          <Typography variant="body1">Brak części ddw tej kategorii</Typography>
         ) : (
           <Box display="flex" flexDirection="column" gap={2}>
-            {/* {parts?.map((part: Part) => (
-              <Card key={part.id} variant="outlined">
+            {parts?.map((part: Part) => (
+              <Card key={part._id} variant="outlined">
                 <CardContent>
                   <Typography variant="h6">{part.name}</Typography>
                   <Typography variant="subtitle1">
@@ -133,18 +154,17 @@ export const PartialList = () => {
                   <Button
                     variant="contained"
                     color="error"
-                    onClick={() => deletePartMutation.mutate(part.id)}
+                    onClick={() => deletePartMutation.mutate(part._id)}
                   >
                     Usuń
                   </Button>
                 </CardActions>
               </Card>
-            ))} */}
+            ))}
           </Box>
         )}
       </Box>
 
-      {/* Formularz dodawania */}
       <Box
         component="form"
         onSubmit={handleAddPart}

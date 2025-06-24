@@ -68,7 +68,7 @@ export const CategoryList: React.FC = () => {
                   <CardActions>
                     <Button
                       startIcon={<VisibilityIcon />}
-                      onClick={() => navigate(`/category/part/${category._id}`)}
+                      onClick={() => navigate(`/category/part/${category.id}`)}
                       color="primary"
                     >
                       Zobacz części
