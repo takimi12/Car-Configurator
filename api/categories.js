@@ -50,27 +50,7 @@ export default async function handler(req, res) {
       return res.status(200).json(data);
     }
 
-    if (req.method === "DELETE") {
-      const { id } = req.query;
-
-      if (!id || !ObjectId.isValid(id)) {
-        return res
-          .status(400)
-          .json({ error: "Invalid or missing category id" });
-      }
-
-      const result = await categoriesCollection.deleteOne({
-        _id: new ObjectId(id),
-      });
-
-      if (result.deletedCount === 0) {
-        return res.status(404).json({ error: "Category not found" });
-      }
-
-      return res.status(200).json({ message: "Category deleted successfully" });
-    }
-
-    res.setHeader("Allow", ["GET", "POST", "DELETE"]);
+    res.setHeader("Allow", ["GET", "POST"]);
     return res.status(405).end(`Method ${req.method} Not Allowed`);
   } catch (err) {
     console.error("❌ API handler error:", err);
