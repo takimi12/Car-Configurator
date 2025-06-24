@@ -13,7 +13,7 @@ import {
   Alert,
 } from "@mui/material";
 import { NewPart, Part } from "../types";
-import { useGetPartsByCategory } from "../hooks/useGetPartsByCategory";
+import { useGetParts } from "../hooks/useGetParts";
 import { useAddPart } from "../hooks/useAddPart";
 import { useDeletePart } from "../hooks/useDeletePart";
 import { useDeleteCategory } from "../hooks/useDeleteCategory";
@@ -24,7 +24,8 @@ export const PartialList = () => {
   const navigate = useNavigate();
 
   const categoryName = useCategoryName(id);
-  const { data: parts, isLoading, isError, error } = useGetPartsByCategory(id);
+  const { data: parts, isLoading, isError, error } = useGetParts();
+
 
   const [newPart, setNewPart] = useState<NewPart>({
     name: "",
@@ -118,7 +119,7 @@ export const PartialList = () => {
           <Typography variant="body1">Brak części w tej kategorii</Typography>
         ) : (
           <Box display="flex" flexDirection="column" gap={2}>
-            {parts?.map((part: Part) => (
+            {/* {parts?.map((part: Part) => (
               <Card key={part.id} variant="outlined">
                 <CardContent>
                   <Typography variant="h6">{part.name}</Typography>
@@ -139,7 +140,7 @@ export const PartialList = () => {
                   </Button>
                 </CardActions>
               </Card>
-            ))}
+            ))} */}
           </Box>
         )}
       </Box>

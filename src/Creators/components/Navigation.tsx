@@ -20,6 +20,7 @@ export const CreatorNavigation: React.FC<NavigationProps> = ({
 
   const hasPartsForCategory = (position: number) => {
     const category = categories?.find((cat) => cat.position === position);
+
     return category
       ? consolidatedParts.some((part) => part.categoryId === category.id)
       : false;

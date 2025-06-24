@@ -9,7 +9,7 @@ export const useAddPart = (
 
   return useMutation({
     mutationFn: async (newPart: NewPart) => {
-      const response = await fetch("/api/parts", {
+      const response = await fetch("https://car-configurator-nine.vercel.app/api/parts", {
         method: "POST",
         body: JSON.stringify({ ...newPart, categoryId }),
         headers: {

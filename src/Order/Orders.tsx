@@ -99,68 +99,76 @@ export const OrdersList: React.FC = () => {
         </Box>
 
         <List>
-          {orders?.map((order) => (
-            <ListItem
-              key={order.id}
-              sx={{
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  transform: "scale(1.02)",
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-                },
-              }}
-            >
-              <Card
-                variant="outlined"
+          {orders?.map((order) => {
+            const { _id, firstName, lastName, email, value, details } = order;
+
+
+            return (
+              <ListItem
+                key={_id}
                 sx={{
-                  width: "100%",
-                  borderRadius: 2,
-                  background: "white",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "scale(1.02)",
+                    boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                  },
                 }}
               >
-                <CardContent>
-                  <Stack
-                    direction={{ xs: "column", sm: "row" }}
-                    spacing={2}
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                      <PersonIcon />
-                      <Typography variant="h6">
-                        {order.firstName} {order.lastName}
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                      <EmailIcon color="secondary" />
-                      <Typography variant="body1" color="textSecondary">
-                        {order.email}
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                      <AccountBalanceIcon />
-                      <Chip
-                        label={`PLN ${order.value}`}
-                        color="primary"
-                        variant="outlined"
-                      />
-                    </Box>
-                  </Stack>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    sx={{
-                      mt: 2,
-                      textAlign: "center",
-                      fontStyle: "italic",
-                    }}
-                  >
-                    <strong>Szczegóły:</strong> {order.details}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </ListItem>
-          ))}
+                <Card
+                  variant="outlined"
+                  sx={{
+                    width: "100%",
+                    borderRadius: 2,
+                    background: "white",
+                  }}
+                >
+                  <CardContent>
+                    <Stack
+                      direction={{ xs: "column", sm: "row" }}
+                      spacing={2}
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                        <PersonIcon />
+                        <Typography variant="h6">
+                          {firstName} {lastName}
+                        </Typography>
+                      </Box>
+
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                        <EmailIcon color="secondary" />
+                        <Typography variant="body1" color="textSecondary">
+                          {email}
+                        </Typography>
+                      </Box>
+
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                        <AccountBalanceIcon />
+                        <Chip
+                          label={`PLN ${value}`}
+                          color="primary"
+                          variant="outlined"
+                        />
+                      </Box>
+                    </Stack>
+
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      sx={{
+                        mt: 2,
+                        textAlign: "center",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      <strong>Szczegóły:</strong> {details}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </ListItem>
+            );
+          })}
         </List>
       </Paper>
     </Container>

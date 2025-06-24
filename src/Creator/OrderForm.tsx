@@ -11,8 +11,7 @@ import {
   ListItemText,
   Divider,
 } from "@mui/material";
-
-import { useSubmitOrder } from "../hooks/useSubmitOrder"; // ← użycie nowego hooka
+import { useSubmitOrder } from "../hooks/useSubmitOrder";
 import { Part, RootState, AppDispatch } from "../redux/store";
 import { OrderSubmitData } from "../types";
 

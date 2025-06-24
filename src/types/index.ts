@@ -38,6 +38,7 @@ export interface PartWithQuantity extends Part {
 
 // Pełne zamówienie z bazy danych
 export interface Order {
+  _id:string;
   id: string;
   firstName: string;
   lastName: string;

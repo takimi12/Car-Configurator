@@ -34,6 +34,7 @@ export const SelectedParts: React.FC<SelectedPartsProps> = ({
       <Typography variant="h6" gutterBottom>
         Dodane części:
       </Typography>
+
       {consolidatedParts.length > 0 ? (
         <List>
           {consolidatedParts.map((part) => (
@@ -57,6 +58,7 @@ export const SelectedParts: React.FC<SelectedPartsProps> = ({
       )}
 
       <Divider sx={{ margin: "16px 0" }} />
+
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography variant="subtitle1" fontWeight="bold">
           Łączna cena:
@@ -67,22 +69,27 @@ export const SelectedParts: React.FC<SelectedPartsProps> = ({
       </Box>
 
       {missingCategories.length > 0 ? (
-        <Typography sx={{ marginTop: "16px", color: "grey" }}>
-          Aby przejść do podsumowania zamówienia, musisz dodać przynajmniej
-          jedną część z poniższych kategorii:
+        <Box sx={{ marginTop: "16px", color: "grey" }}>
+          <Typography>
+            Aby przejść do podsumowania zamówienia, musisz dodać przynajmniej
+            jedną część z poniższych kategorii:
+          </Typography>
           <ul>
             {missingCategories.map((cat) => (
               <li key={cat.id}>
-                {cat.name}
+                {cat.name}{" "}
                 {wasFullyPopulated && (
-                  <Link href={`/creator/${cat.position}`}>
+                  <Link
+                    href={`/creator/${cat.position}`}
+                    underline="hover"
+                  >
                     (krok {cat.position})
                   </Link>
                 )}
               </li>
             ))}
           </ul>
-        </Typography>
+        </Box>
       ) : (
         <Button
           variant="contained"

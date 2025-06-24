@@ -7,6 +7,8 @@ import {
   Button,
   Paper,
 } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 import { Part } from "../../types/index";
 
 interface PartsListProps {
@@ -15,6 +17,14 @@ interface PartsListProps {
 }
 
 export const PartsList: React.FC<PartsListProps> = ({ parts, onAddPart }) => {
+  const selectedParts = useSelector((state: RootState) => state.example.parts);
+
+  const isPartSelected = (part: Part) => {
+    return selectedParts.some(
+      (selected) => selected._id === part._id || selected.id === part.id
+    );
+  };
+
   return (
     <Paper elevation={3} sx={{ flex: 1, padding: "16px", borderRadius: "8px" }}>
       <Typography variant="h6" gutterBottom>
@@ -32,8 +42,9 @@ export const PartsList: React.FC<PartsListProps> = ({ parts, onAddPart }) => {
                 variant="contained"
                 color="primary"
                 onClick={() => onAddPart(part)}
+                disabled={isPartSelected(part)}
               >
-                Dodaj
+                {isPartSelected(part) ? "Dodano" : "Dodaj"}
               </Button>
             </ListItem>
           ))}

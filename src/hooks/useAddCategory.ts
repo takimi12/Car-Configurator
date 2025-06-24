@@ -6,7 +6,7 @@ export const useAddCategory = () => {
 
   return useMutation({
     mutationFn: async (newCategory: NewCategory) => {
-      const response = await fetch("/api/categories", {
+      const response = await fetch("https://car-configurator-nine.vercel.app/api/categories", {
         method: "POST",
         body: JSON.stringify(newCategory),
         headers: {

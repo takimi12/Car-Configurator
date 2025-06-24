@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box, Typography, CircularProgress } from "@mui/material";
 
 import { useGetCategories } from "../hooks/useGetCategories";
-import { useGetPartsByCategory } from "../hooks/useGetPartsByCategory";
+import { useGetParts } from "../hooks/useGetParts";
 import { RootState, addPart, removePart } from "../redux/store";
 import { PartsList } from "./components/PartsListComponent";
 import { SelectedParts } from "./components/SelectedPartComponent";
@@ -21,21 +21,22 @@ export const Creators: React.FC = () => {
     isLoading: isCatLoading,
     error: catError,
   } = useGetCategories();
+
   const category = categories?.find((cat) => cat.position.toString() === id);
 
   const {
     data: parts = [],
     isLoading: isPartsLoading,
     error: partsError,
-  } = useGetPartsByCategory(category?._id);
+  } = useGetParts(category?.id || null); 
+
 
   const globalParts = useSelector((state: RootState) => state.example.parts);
 
-  // Zaktualizowane consolidatedParts - używamy teraz _id jako unikalnego identyfikatora
+
   const consolidatedParts = useMemo<PartWithQuantity[]>(() => {
     const map = new Map<string, PartWithQuantity>();
     globalParts.forEach((p: Part) => {
-      // Używamy _id lub id jako klucza (w zależności od tego, które pole jest dostępne)
       const partKey = p._id || p.id;
       const existing = map.get(partKey);
       if (existing) {
@@ -50,8 +51,9 @@ export const Creators: React.FC = () => {
   const missingCategories = useMemo(() => {
     if (!categories) return [];
     const has = new Set(consolidatedParts.map((p) => p.categoryId));
-    return categories.filter((cat) => !has.has(cat._id));
+    return categories.filter((cat) => cat.id && !has.has(cat.id)); 
   }, [categories, consolidatedParts]);
+
 
   const [wasFullyPopulated, setWasFullyPopulated] = useState(false);
   const [hadMissingCategories, setHadMissingCategories] = useState(false);
@@ -76,7 +78,6 @@ export const Creators: React.FC = () => {
 
   const handleAddPart = (part: Part) => dispatch(addPart(part));
   
-  // Zaktualizowane handleRemovePart - używamy _id lub id
   const handleRemovePart = (partId: string) => dispatch(removePart(partId));
 
   if (isCatLoading || isPartsLoading) {

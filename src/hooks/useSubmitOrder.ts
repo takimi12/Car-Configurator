@@ -2,7 +2,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { OrderSubmitData } from "../types";
 
-const API_URL = "https://car-configurator-nine.vercel.app/";
 
 export const useSubmitOrder = (
   onSuccess: () => void,
@@ -10,7 +9,7 @@ export const useSubmitOrder = (
 ) => {
   return useMutation({
     mutationFn: async (orderData: OrderSubmitData) => {
-      const response = await fetch(`${API_URL}/orders`, {
+      const response = await fetch(`https://car-configurator-nine.vercel.app/api/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
