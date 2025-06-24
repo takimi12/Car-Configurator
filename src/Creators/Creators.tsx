@@ -30,8 +30,7 @@ export const Creators: React.FC = () => {
     error: partsError,
   } = useGetParts(category?.id || null);
 
-
-  console.log(parts, 'parts')
+  console.log(parts, "parts");
 
   const globalParts = useSelector((state: RootState) => state.example.parts);
 

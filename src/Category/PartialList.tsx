@@ -26,27 +26,20 @@ export const PartialList = () => {
 
   const categoryName = useCategoryName(id);
 
-
-
-
-
   const {
     data: categories,
     isLoading: isCatLoading,
     error: catError,
   } = useGetCategories();
 
-
   const category = categories?.find((cat) => cat.id === id);
-
 
   const {
     data: parts = [],
     isLoading,
     error,
-    isError
+    isError,
   } = useGetParts(category?.id || null);
-
 
   const [newPart, setNewPart] = useState<NewPart>({
     name: "",

@@ -8,8 +8,7 @@ export const useGetParts = (
     queryFn: async () => {
       const response = await fetch(
         "https://car-configurator-nine.vercel.app/api/parts",
-        // `http://localhost:3002/parts`
-        );
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch parts");
       }

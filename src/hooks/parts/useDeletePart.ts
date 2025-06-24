@@ -8,11 +8,11 @@ export const useDeletePart = (categoryId: string | undefined) => {
       const response = await fetch(
         `https://car-configurator-nine.vercel.app/api/parts/${partId}`,
 
-        // `http://localhost:3002/parts/${partId}`
-        
-         {
-        method: "DELETE",
-      });
+
+        {
+          method: "DELETE",
+        },
+      );
       if (!response.ok) {
         throw new Error("Nie udało się usunąć części");
       }

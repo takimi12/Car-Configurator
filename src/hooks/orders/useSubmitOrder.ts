@@ -1,6 +1,5 @@
-// ../api/hooks.ts lub osobny plik np. useSubmitOrder.ts
 import { useMutation } from "@tanstack/react-query";
-import { OrderSubmitData } from "../types";
+import { OrderSubmitData } from "../../types";
 
 export const useSubmitOrder = (
   onSuccess: () => void,
@@ -8,7 +7,7 @@ export const useSubmitOrder = (
 ) => {
   return useMutation({
     mutationFn: async (orderData: OrderSubmitData) => {
-      const response = await fetch(`http://localhost:3002/orders`, {
+      const response = await fetch(`https://car-configurator-nine.vercel.app/api/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

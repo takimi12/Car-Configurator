@@ -11,14 +11,14 @@ export const useAddPart = (
     mutationFn: async (newPart: NewPart) => {
       const response = await fetch(
         "https://car-configurator-nine.vercel.app/api/parts",
-        // "http://localhost:3002/parts",
-         {
-        method: "POST",
-        body: JSON.stringify({ ...newPart, categoryId }),
-        headers: {
-          "Content-Type": "application/json",
+        {
+          method: "POST",
+          body: JSON.stringify({ ...newPart, categoryId }),
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
       if (!response.ok) {
         throw new Error("Nie udało się dodać części");
       }

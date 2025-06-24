@@ -11,7 +11,7 @@ import {
   ListItemText,
   Divider,
 } from "@mui/material";
-import { useSubmitOrder } from "../hooks/useSubmitOrder";
+import { useSubmitOrder } from "../hooks/orders/useSubmitOrder";
 import { Part, RootState, AppDispatch } from "../redux/store";
 import { OrderSubmitData } from "../types";
 

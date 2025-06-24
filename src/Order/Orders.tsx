@@ -15,7 +15,7 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import { useOrders } from "../hooks/useOrders";
+import { useOrders } from "../hooks/orders/useOrders";
 
 export const OrdersList: React.FC = () => {
   const { data: orders, isLoading, error } = useOrders();

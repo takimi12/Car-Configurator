@@ -40,7 +40,9 @@ export default async function handler(req, res) {
 
   // Sprawdź, czy ID jest obecne i jest poprawnym ObjectId
   if (!id || !ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "Nieprawidłowe lub brakujące ID części." });
+    return res
+      .status(400)
+      .json({ error: "Nieprawidłowe lub brakujące ID części." });
   }
 
   try {

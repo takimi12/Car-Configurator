@@ -49,13 +49,17 @@ export default async function handler(req, res) {
         const { name, price, partId, categoryId } = req.body;
 
         // Walidacja wymaganych pól
-        if (!name || typeof price === 'undefined' || !partId || !categoryId) {
-          return res.status(400).json({ error: 'Brak wymaganych pól: nazwa, cena, partId lub categoryId' });
+        if (!name || typeof price === "undefined" || !partId || !categoryId) {
+          return res
+            .status(400)
+            .json({
+              error: "Brak wymaganych pól: nazwa, cena, partId lub categoryId",
+            });
         }
 
         // Upewnij się, że price jest liczbą
         if (isNaN(parseFloat(price))) {
-          return res.status(400).json({ error: 'Cena musi być liczbą.' });
+          return res.status(400).json({ error: "Cena musi być liczbą." });
         }
 
         // Sprawdź, czy categoryId jest poprawnym ObjectId, jeśli ma być referencją
@@ -73,7 +77,12 @@ export default async function handler(req, res) {
         };
 
         const result = await partsCollection.insertOne(newPart);
-        return res.status(201).json({ insertedId: result.insertedId, message: "Część dodana pomyślnie." });
+        return res
+          .status(201)
+          .json({
+            insertedId: result.insertedId,
+            message: "Część dodana pomyślnie.",
+          });
 
       default:
         // Obsługa nieobsługiwanych metod HTTP

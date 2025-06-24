@@ -7,7 +7,6 @@ export const useDeleteCategory = () => {
     mutationFn: async (categoryId: string) => {
       const response = await fetch(
         `https://car-configurator-nine.vercel.app/api/categories/${categoryId}`,
-        // "http://localhost:3002/categories",
         {
           method: "DELETE",
         },

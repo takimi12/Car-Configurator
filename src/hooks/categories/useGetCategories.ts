@@ -7,7 +7,6 @@ export const useGetCategories = () => {
     queryFn: async () => {
       const response = await fetch(
         "https://car-configurator-nine.vercel.app/api/categories",
-        // "http://localhost:3002/categories",
       );
 
       if (!response.ok) {
