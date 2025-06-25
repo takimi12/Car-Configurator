@@ -29,7 +29,7 @@ export const CategoryList: React.FC = () => {
 
   const { data: categories, isLoading } = useGetCategories();
 
-  console.log(categories, 'cat')
+  console.log(categories, "cat");
   const addCategoryMutation = useAddCategory();
   const deleteCategoryMutation = useDeleteCategory();
 

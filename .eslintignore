@@ -1,0 +1,6 @@
+# .eslintignore
+/build
+/dist
+/node_modules
+/.husky
+/coverage

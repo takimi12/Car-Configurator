@@ -11,10 +11,10 @@ export default [
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
-    // Dodaj sekcję 'settings' na tym poziomie
+    // Nowa sekcja settings dla eslint-plugin-react
     settings: {
       react: {
-        version: "detect", // To jest kluczowe!
+        version: "detect", // Automatycznie wykryje wersję Reacta z package.json
       },
     },
     // Ogólne zasady, które chcesz stosować w całym projekcie
@@ -25,27 +25,21 @@ export default [
   },
   {
     // Konfiguracja dla plików API (.js)
-    files: ["api/**/*.js"], // Dotyczy wszystkich plików .js w folderze api
+    files: ["api/**/*.js"],
     languageOptions: {
       parserOptions: {
-        sourceType: "script", // Użyj trybu skryptu dla CommonJS
-        ecmaVersion: 2020, // Zapewnij wsparcie dla ES2020
+        sourceType: "script",
+        ecmaVersion: 2020,
       },
-      // Wszystkie globalne zmienne przeniesione do languageOptions.globals
       globals: {
-        ...globals.node, // Dodaj globalne zmienne Node.js
-        ...globals.es2020, // Dodaj globalne zmienne dla ES2020
+        ...globals.node,
+        ...globals.es2020,
       },
     },
     rules: {
-      // Wyłącz zakaz importów CommonJS (require())
       "@typescript-eslint/no-require-imports": "off",
-      // Wyłącz regułę ban-ts-comment, która narzeka na @ts-ignore/@ts-expect-error
       "@typescript-eslint/ban-ts-comment": "off",
-      // Wyłącz sprawdzanie niezdefiniowanych globalnych zmiennych (np. module, process, require)
-      // Ponieważ są one teraz zdefiniowane w languageOptions.globals
       "no-undef": "off",
-      // Zmień błąd nieużywanych zmiennych na ostrzeżenie także dla tych plików
       "@typescript-eslint/no-unused-vars": "warn",
     },
   },

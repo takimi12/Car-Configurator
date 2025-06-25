@@ -54,7 +54,9 @@ export const PartialList = () => {
     e.preventDefault();
 
     if (!newPart.name || !newPart.price || !newPart.partId || !category?._id) {
-      alert("Proszę wypełnić wszystkie pola i upewnij się, że kategoria istnieje.");
+      alert(
+        "Proszę wypełnić wszystkie pola i upewnij się, że kategoria istnieje.",
+      );
       return;
     }
 
@@ -75,7 +77,7 @@ export const PartialList = () => {
 
     if (
       window.confirm(
-        `Czy na pewno chcesz usunąć kategorię "${category.name}" wraz ze wszystkimi częściami?`
+        `Czy na pewno chcesz usunąć kategorię "${category.name}" wraz ze wszystkimi częściami?`,
       )
     ) {
       try {
@@ -97,7 +99,12 @@ export const PartialList = () => {
 
   if (isLoading || isCatLoading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+      >
         <CircularProgress />
       </Box>
     );
@@ -134,7 +141,9 @@ export const PartialList = () => {
             sx={{ mb: 2, ml: 2 }}
             disabled={deleteCategoryMutation.isPending}
           >
-            {deleteCategoryMutation.isPending ? "Usuwanie..." : "Usuń kategorię i części"}
+            {deleteCategoryMutation.isPending
+              ? "Usuwanie..."
+              : "Usuń kategorię i części"}
           </Button>
         </Box>
 
