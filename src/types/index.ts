@@ -9,6 +9,7 @@ export interface Category {
 
 // Typ do dodawania nowej kategorii (wysyłany z frontu)
 export interface NewCategory {
+  id:string;
   name: string;
   identifier: string;
   position: number;

@@ -17,17 +17,29 @@ import { useGetCategories } from "../hooks/categories/useGetCategories";
 import { useAddCategory } from "../hooks/categories/useAddCategory";
 import { useDeleteCategory } from "../hooks/categories/useDeleteCategory";
 
+// Funkcja pomocnicza do generowania unikalnego ID
+function generateUniqueId(): string {
+  // Generuje 4-znakowe ID, podobne do Twoich istniejących danych
+  return Math.random().toString(36).substring(2, 6);
+}
+
 export const CategoryList: React.FC = () => {
   const [newCategory, setNewCategory] = useState({ name: "", identifier: "" });
   const navigate = useNavigate();
 
   const { data: categories, isLoading } = useGetCategories();
+
+  console.log(categories, 'cat')
   const addCategoryMutation = useAddCategory();
   const deleteCategoryMutation = useDeleteCategory();
 
   const handleAddCategory = (e: React.FormEvent) => {
     e.preventDefault();
+    // Generujemy unikalne ID przed wysłaniem danych
+    const categoryId = generateUniqueId();
+
     addCategoryMutation.mutate({
+      id: categoryId, // Dodajemy wygenerowane ID tutaj
       name: newCategory.name,
       identifier: newCategory.identifier,
       position: (categories?.length || 0) + 1,

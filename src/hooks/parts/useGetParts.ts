@@ -7,7 +7,7 @@ export const useGetParts = (
     queryKey: ["parts", categoryId],
     queryFn: async () => {
       const response = await fetch(
-        "https://car-configurator-nine.vercel.app/api/parts",
+        "https://car-configurator-nine.vercel.app/api/parts"
       );
       if (!response.ok) {
         throw new Error("Failed to fetch parts");

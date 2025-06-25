@@ -50,11 +50,9 @@ export default async function handler(req, res) {
 
         // Walidacja wymaganych pól
         if (!name || typeof price === "undefined" || !partId || !categoryId) {
-          return res
-            .status(400)
-            .json({
-              error: "Brak wymaganych pól: nazwa, cena, partId lub categoryId",
-            });
+          return res.status(400).json({
+            error: "Brak wymaganych pól: nazwa, cena, partId lub categoryId",
+          });
         }
 
         // Upewnij się, że price jest liczbą
@@ -77,12 +75,10 @@ export default async function handler(req, res) {
         };
 
         const result = await partsCollection.insertOne(newPart);
-        return res
-          .status(201)
-          .json({
-            insertedId: result.insertedId,
-            message: "Część dodana pomyślnie.",
-          });
+        return res.status(201).json({
+          insertedId: result.insertedId,
+          message: "Część dodana pomyślnie.",
+        });
 
       default:
         // Obsługa nieobsługiwanych metod HTTP

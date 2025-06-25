@@ -17,14 +17,11 @@ import { useGetParts } from "../hooks/parts/useGetParts";
 import { useAddPart } from "../hooks/parts/useAddPart";
 import { useDeletePart } from "../hooks/parts/useDeletePart";
 import { useDeleteCategory } from "../hooks/categories/useDeleteCategory";
-import { useCategoryName } from "../hooks/categories/useCategoryName";
 import { useGetCategories } from "../hooks/categories/useGetCategories";
 
 export const PartialList = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-
-  const categoryName = useCategoryName(id);
 
   const {
     data: categories,
@@ -39,7 +36,7 @@ export const PartialList = () => {
     isLoading,
     error,
     isError,
-  } = useGetParts(category?.id || null);
+  } = useGetParts(category?._id || null);
 
   const [newPart, setNewPart] = useState<NewPart>({
     name: "",
@@ -47,23 +44,22 @@ export const PartialList = () => {
     partId: "",
   });
 
-  const addPartMutation = useAddPart(id, () =>
+  const addPartMutation = useAddPart(category?._id || "", () =>
     setNewPart({ name: "", price: "", partId: "" }),
   );
-  const deletePartMutation = useDeletePart(id);
+  const deletePartMutation = useDeletePart(category?._id || "");
   const deleteCategoryMutation = useDeleteCategory();
 
   const handleAddPart = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!newPart.name || !newPart.price || !newPart.partId || !id) {
-      alert(
-        "Proszę wypełnić wszystkie pola i upewnij się, że kategoria istnieje.",
-      );
+    if (!newPart.name || !newPart.price || !newPart.partId || !category?._id) {
+      alert("Proszę wypełnić wszystkie pola i upewnij się, że kategoria istnieje.");
       return;
     }
 
     const formattedPartId = newPart.partId.toLowerCase().replace(/\s+/g, "-");
+
     addPartMutation.mutate({
       name: newPart.name,
       price: newPart.price,
@@ -71,30 +67,43 @@ export const PartialList = () => {
     });
   };
 
-  const handleDeleteCategory = () => {
+  const handleDeleteCategory = async () => {
+    if (!category?._id) {
+      alert("Nieprawidłowa kategoria.");
+      return;
+    }
+
     if (
-      window.confirm(`Czy na pewno chcesz usunąć kategorię "${categoryName}"?`)
+      window.confirm(
+        `Czy na pewno chcesz usunąć kategorię "${category.name}" wraz ze wszystkimi częściami?`
+      )
     ) {
-      deleteCategoryMutation.mutate(id!, {
-        onSuccess: () => navigate("/categories"),
-      });
+      try {
+        // Usuń wszystkie części z tej kategorii
+        for (const part of parts) {
+          await deletePartMutation.mutateAsync(part._id);
+        }
+
+        // Usuń kategorię
+        await deleteCategoryMutation.mutateAsync(category._id);
+
+        navigate("/categories");
+      } catch (err) {
+        alert("Wystąpił błąd podczas usuwania kategorii lub części.");
+        console.error(err);
+      }
     }
   };
 
-  if (isLoading) {
+  if (isLoading || isCatLoading) {
     return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height="100vh"
-      >
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
         <CircularProgress />
       </Box>
     );
   }
 
-  if (isError) {
+  if (isError || catError) {
     return (
       <Container maxWidth="md" sx={{ mt: 4 }}>
         <Alert severity="error">
@@ -109,7 +118,7 @@ export const PartialList = () => {
       <Box>
         <Box sx={{ mb: 4 }}>
           <Typography variant="h4" gutterBottom>
-            Zobacz części w kategorii {categoryName}
+            Zobacz części w kategorii {category?.name}
           </Typography>
           <Button
             variant="text"
@@ -123,16 +132,17 @@ export const PartialList = () => {
             color="error"
             onClick={handleDeleteCategory}
             sx={{ mb: 2, ml: 2 }}
+            disabled={deleteCategoryMutation.isPending}
           >
-            Usuń kategorię i części
+            {deleteCategoryMutation.isPending ? "Usuwanie..." : "Usuń kategorię i części"}
           </Button>
         </Box>
 
-        {parts?.length === 0 ? (
-          <Typography variant="body1">Brak części ddw tej kategorii</Typography>
+        {parts.length === 0 ? (
+          <Typography variant="body1">Brak części w tej kategorii</Typography>
         ) : (
           <Box display="flex" flexDirection="column" gap={2}>
-            {parts?.map((part: Part) => (
+            {parts.map((part: Part) => (
               <Card key={part._id} variant="outlined">
                 <CardContent>
                   <Typography variant="h6">{part.name}</Typography>
@@ -171,7 +181,7 @@ export const PartialList = () => {
         }}
       >
         <Typography variant="h4" gutterBottom>
-          Dodaj części w kategorii {categoryName}
+          Dodaj części w kategorii {category?.name}
         </Typography>
         <TextField
           label="Nazwa części"

@@ -8,7 +8,6 @@ export const useDeletePart = (categoryId: string | undefined) => {
       const response = await fetch(
         `https://car-configurator-nine.vercel.app/api/parts/${partId}`,
 
-
         {
           method: "DELETE",
         },
