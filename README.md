@@ -1,6 +1,27 @@
 # Car Configurator
 
-# Car Configurator
+
+# Branch: `mongo-db`
+
+This README refers to the `mongo-db` branch.
+
+### Project Structure
+
+The project has three branches:
+
+- **`main`** – the base version of the project using `json-server`.
+- **`mongo-db`** – the application is deployed on [Vercel]and connected to **MongoDB**.
+- **`fullStack`** – contains a local backend written in **Express.js**, located in the `backend` folder.
+
+Ten plik README dotyczy brancha `mongo-db`.
+
+### Struktura projektu
+
+Projekt posiada trzy branche:
+
+- **`main`** – podstawowa wersja projektu wykorzystująca `json-server`.
+- **`mongo-db`** – aplikacja została zdeployowana na [Vercel] i połączona z bazą danych **MongoDB**.
+- **`fullStack`** – zawiera lokalny backend napisany w **Express.js**, znajdujący się w folderze `backend`
 
 ## Project Description
 
@@ -104,12 +125,11 @@ No login or password required.
 
 - **Email**: tomek12olech@gmail.com
 - **GitHub**: [takimi12](https://github.com/takimi12)
-- **LinkedIn**: [LinkedIn Profile](#)
+- **LinkedIn**: https://www.linkedin.com/in/tomaszolechfrontend/
 
 ## Opis projektu
 
-Car Configurator to aplikacja webowa umożliwiająca użytkownikom tworzenie spersonalizowanego zamówienia samochodu. Użytkownik może wybierać różne części i dodatki do pojazdu, a także zobaczyć całkowity koszt konfiguracji w czasie rzeczywistym. Po zakończeniu konfiguracji może złożyć zamówienie, które zostanie zapisane w bazie danych. Jest to 4/5 projektów realizowanych w ramach kursu React od Frontowców.
-
+Car Configurator to aplikacja webowa umożliwiająca użytkownikom tworzenie spersonalizowanego zamówienia samochodu. Użytkownik może wybierać różne części i dodatki do pojazdu, a także zobaczyć całkowity koszt konfiguracji w czasie rzeczywistym. Po zakończeniu konfiguracji może złożyć zamówienie, które zostanie zapisane w bazie danych MongoDb. Jest to projekt zrealizowany w ramach kursu od Frontowców.
 ## Architektura
 
 Aplikacja składa się z:
@@ -206,4 +226,4 @@ Nie są wymagane loginy ani hasła.
 
 Email: tomek12olech@gmail.com
 GitHub: [takimi12](https://github.com/takimi12)
-LinkedIn:
+LinkedIn: https://www.linkedin.com/in/tomaszolechfrontend/

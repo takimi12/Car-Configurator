@@ -38,23 +38,23 @@ export default async function handler(req, res) {
     const objectId = new ObjectId(id);
 
     switch (req.method) {
-      case "GET": { 
+      case "GET": {
         const part = await partsCollection.findOne({ _id: objectId });
 
         if (!part) {
           return res.status(404).json({ error: "Część nie znaleziona." });
         }
         return res.status(200).json(part);
-      } 
+      }
 
-      case "DELETE": { 
+      case "DELETE": {
         const result = await partsCollection.deleteOne({ _id: objectId });
 
         if (result.deletedCount === 0) {
           return res.status(404).json({ error: "Część nie znaleziona." });
         }
         return res.status(200).json({ message: "Część usunięta pomyślnie." });
-      } 
+      }
 
       default:
         res.setHeader("Allow", ["GET", "DELETE"]);
